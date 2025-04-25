@@ -1,9 +1,9 @@
-import { BlogCardProps } from "@/types";
+import { BlogDataType } from "@/types";
 import Image from "next/image";
 import React from "react";
 import { CiCalendarDate, CiClock2 } from "react-icons/ci";
 
-const BlogCard: React.FC<BlogCardProps> = ({
+const BlogCard: React.FC<BlogDataType> = ({
   BlogImage,
   ProfileImage,
   name,
@@ -12,6 +12,8 @@ const BlogCard: React.FC<BlogCardProps> = ({
   description,
   author,
   postDate,
+  slug,
+  category,
 }) => {
   return (
     <div className="rounded-xl border-[0.5px] border-gray-200 bg-white font-figtree transition-transform duration-300 hover:scale-105">

@@ -70,9 +70,12 @@ const Header = () => {
               {/* <a className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow-sm">
                 Login
               </a> */}
-              <button className="rounded-full cursor-pointer bg-indigo-800 px-5 md:block hidden justify-center items-center py-2 font-figtree text-base font-medium text-white">
-                Subscribe
-              </button>
+              <Link
+                href="/create"
+                className="rounded-full cursor-pointer bg-indigo-800 px-5 md:block hidden justify-center items-center py-2 font-figtree text-base font-medium text-white"
+              >
+                Create
+              </Link>
             </div>
             <div className="block md:hidden">
               <button className="rounded-sm bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">

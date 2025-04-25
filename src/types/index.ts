@@ -1,17 +1,20 @@
 import { StaticImageData } from "next/image";
 
-export interface BlogCardProps {
-  BlogImage: StaticImageData;
-  ProfileImage: StaticImageData;
+export interface CategoryCardProps {
+  categoryImage: StaticImageData | string;
+  categoryName: string;
+}
+
+export interface BlogDataType {
+  id: number;
+  BlogImage: StaticImageData | string;
+  ProfileImage: StaticImageData | string;
   name: string;
   timeAgo: string;
   title: string;
   description: string;
   author: string;
   postDate: string;
-}
-
-export interface CategoryCardProps {
-  categoryImage: StaticImageData;
-  categoryName: string;
+  slug: string;
+  category: string;
 }
