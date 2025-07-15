@@ -26,7 +26,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: mparmilan/mindful-blog:latest
+          tags: mparmilan/mindful-blog-web:latest
 
       - name: Post Push Cleanup
         run: echo "✅ Docker image pushed to Docker Hub successfully."
