@@ -1,6 +1,7 @@
+"use client";
 import Image from "next/image";
 import React from "react";
-import Logo from "../assets/logo.png";
+import Logo from "../../assets/logo.png";
 
 const Footer = () => {
   return (
