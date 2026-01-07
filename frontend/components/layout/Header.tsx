@@ -39,7 +39,7 @@ const Header = () => {
                 </li>
                 <li>
                   <Link
-                    href="/categories"
+                    href="/category"
                     className="relative text-gray-800 text-base cursor-pointer font-medium font-figtree transition ease-in duration-300 hover:text-gray-800/75 
                      after:absolute after:left-0 after:bottom-0 after:w-0 after:h-px after:bg-blue-500 after:transition-all after:duration-300 hover:after:w-full"
                   >
@@ -72,10 +72,10 @@ const Header = () => {
                 Login
               </a> */}
               <Link
-                href="/create"
+                href="/login"
                 className="rounded-full cursor-pointer bg-indigo-800 px-5 md:block hidden justify-center items-center py-2 font-figtree text-base font-medium text-white"
               >
-                Create
+                Sign In
               </Link>
             </div>
             <div className="block md:hidden">
