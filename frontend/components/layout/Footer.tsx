@@ -379,7 +379,7 @@ const Footer = () => {
               </p>
 
               <p className="mt-4 text-md font-medium text-gray-700 sm:order-first sm:mt-0">
-                &copy; 2025 Mindful. All Rights Reserved.
+                &copy; 2026 Mindful. All Rights Reserved.
               </p>
             </div>
           </div>
