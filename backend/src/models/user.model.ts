@@ -1,21 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 import { Role } from "../constant/enum";
 
-interface IUser extends Document {
-  username: string;
-  email: string;
-  password: string;
-  role: Role;
-  isEmailVerified: boolean;
-  isTwoFactorEnabled: boolean;
-  twoFactorSecret?: string;
-  tokenVersion: number;
-  resetPasswordToken: string | undefined;
-  resetPasswordExpires: Date | undefined;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
 const userSchema = new Schema(
   {
     username: {
@@ -37,7 +22,6 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, "Password is required"],
-      select: false,
     },
     role: {
       type: String,
