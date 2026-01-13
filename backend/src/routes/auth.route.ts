@@ -1,4 +1,4 @@
-import Router from "express";
+import Router, { IRouter } from "express";
 import {
   forgotPasswordHandler,
   loginHandler,
@@ -9,7 +9,7 @@ import {
   verifyEmailHandler,
 } from "../controllers/auth/auth.controller";
 
-const router = Router();
+const router: IRouter = Router();
 
 router.post("/register", registerHandler);
 router.get("/verify-email", verifyEmailHandler);

@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { IRouter, Router } from "express";
 import {
   getAllUsersHandler,
   healthCheckHandler,
@@ -7,7 +7,7 @@ import authMiddleware from "../middleware/auth.middleware";
 import authorizeRole from "../middleware/role.middleware";
 import { Role } from "../constant/enum";
 
-const router = Router();
+const router: IRouter = Router();
 
 router.get("/me", authMiddleware, healthCheckHandler);
 router.get("/", authMiddleware, authorizeRole(Role.ADMIN), getAllUsersHandler);

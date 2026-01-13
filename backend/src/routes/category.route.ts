@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { IRouter, Router } from "express";
 import {
   createCategoryHandler,
   deleteCategoryHandler,
@@ -11,7 +11,7 @@ import authorizeRole from "../middleware/role.middleware";
 import { Role } from "../constant/enum";
 import { upload } from "../config/cloudinary";
 
-const router = Router();
+const router: IRouter = Router();
 
 router.post(
   "/",
