@@ -6,9 +6,9 @@ import {
   getCategoryHandler,
   updateCategoryHandler,
 } from "../controllers/category/category.controller";
-import authMiddleware from "../middleware/auth.middleware";
-import authorizeRole from "../middleware/role.middleware";
-import { Role } from "../constant/enum";
+// import authMiddleware from "../middleware/auth.middleware";
+// import authorizeRole from "../middleware/role.middleware";
+// import { Role } from "../constant/enum";
 import { upload } from "../config/cloudinary";
 
 const router = Router();

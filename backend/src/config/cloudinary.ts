@@ -1,6 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import multer from "multer";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
+import CloudinaryStorage from "multer-storage-cloudinary";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -8,9 +8,9 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const storage = new CloudinaryStorage({
+const storage = new (CloudinaryStorage as any)({
   cloudinary,
-  params: async (req, file) => ({
+  params: async (_req: any, file: { originalname: string }) => ({
     folder: "uploads",
     allowed_formats: ["jpg", "jpeg", "png", "webp"],
     public_id: `${Date.now()}-${file.originalname.split(".")[0]}`,
