@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const BlogScreen = () => {
   return (
-    <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8 px-6 justify-center items-center">
+    <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 max-w-7xl mx-auto gap-8 px-6 py-8 lg:px-16 justify-center items-center">
       {blogData.map((item, index) => (
         <Link href={`blog/${item.slug}`} key={index}>
           <BlogCard {...item} data-aos="fade-up" data-aos-delay={index * 200} />

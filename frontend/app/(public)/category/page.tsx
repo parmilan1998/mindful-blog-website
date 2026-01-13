@@ -1,6 +1,6 @@
 import React from "react";
-import Category1 from "../../assets/categories-image1.png";
-import Category2 from "../../assets/categories-image3.png";
+import Category1 from "../../../assets/categories-image1.png";
+import Category2 from "../../../assets/categories-image3.png";
 import CategoryCard from "@/components/category/CategoryCard";
 
 const categories = [
@@ -16,7 +16,7 @@ const categories = [
 
 const CategoryScreen = () => {
   return (
-    <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 px-6 gap-8 justify-center items-center">
+    <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 max-w-7xl mx-auto gap-8 px-6 py-8 lg:px-16 justify-center items-center">
       {categories.map((category, index) => (
         <CategoryCard key={index} {...category} />
       ))}
