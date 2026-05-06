@@ -1,0 +1,15 @@
+export const envConfig = {
+  nodeEnv: process.env.NODE_ENV,
+  isProduction: process.env.NODE_ENV === "production",
+  port: process.env.PORT,
+  mongoUri: process.env.MONGODB_URI,
+  mongoDbName: process.env.MONGODB_DB_NAME,
+  authSecret: process.env.AUTH_SECRET,
+  authGithubClientId: process.env.AUTH_GITHUB_CLIENT_ID,
+  authGithubClientSecret: process.env.AUTH_GITHUB_CLIENT_SECRET,
+  authFacebookClientId: process.env.AUTH_FACEBOOK_CLIENT_ID,
+  authFacebookClientSecret: process.env.AUTH_FACEBOOK_CLIENT_SECRET,
+  authGoogleClientId: process.env.AUTH_GOOGLE_CLIENT_ID,
+  authGoogleClientSecret: process.env.AUTH_GOOGLE_CLIENT_SECRET,
+  authUrl: process.env.AUTH_URL,
+};
