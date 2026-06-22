@@ -1,7 +1,12 @@
+"use client";
+
 import React from "react";
+import DashboardLayout from "@/app/dashboard/layout";
 
-const AdminLayout = ({ children }: { children: React.ReactNode }) => {
-  return <div>{children}</div>;
-};
-
-export default AdminLayout;
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+    return (
+        <DashboardLayout variant="admin" requiredRole="admin">
+            {children}
+        </DashboardLayout>
+    );
+}

@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
   env: {
     MONGODB_URI: process.env.MONGODB_URI,
     MONGODB_DB_NAME: process.env.MONGODB_DB_NAME,
-    NODE_ENV: process.env.NODE_ENV,
     PORT: process.env.PORT,
     AUTH_SECRET: process.env.AUTH_SECRET,
     AUTH_GITHUB_CLIENT_ID: process.env.AUTH_GITHUB_CLIENT_ID,
@@ -19,10 +18,19 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    domains: [
-      "images.unsplash.com",
-      "avatar.githubusercontent.com",
-      "lh3.googleusercontent.com",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
     ],
   },
 };

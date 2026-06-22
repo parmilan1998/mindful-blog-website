@@ -1,74 +1,219 @@
+"use client";
+
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { motion } from "framer-motion";
+import { Eye, EyeOff, Zap, LogIn, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Logo from "@/assets/images/fusionui.png";
-import Image from "next/image";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Separator } from "@/components/ui/separator";
+import { toast } from "sonner";
+import { SITE } from "@/constants";
+import { useAuth } from "@/providers/auth-provider";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 
-interface LoginProps {
-  heading?: string;
-  subheading?: string;
-  googleText?: string;
-  loginText?: string;
-  signupText?: string;
-  signupUrl?: string;
-}
+const schema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(1, "Password is required"),
+  rememberMe: z.boolean().optional(),
+});
 
-const LoginPage = ({
-  heading = "Welcome back",
-  subheading = "Login to continue building with Mindful.",
-  googleText = "Continue with Google",
-  loginText = "Sign In",
-  signupText = "Don't have an account?",
-  signupUrl = "/auth/register",
-}: LoginProps) => {
+type FormData = z.infer<typeof schema>;
+
+export default function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
+  const { login } = useAuth();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const from = searchParams.get("redirect") || "/dashboard";
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setValue,
+    watch,
+  } = useForm<FormData>({
+    // @ts-ignore
+    resolver: zodResolver(schema),
+    defaultValues: {
+      email: "alex@devpulse.io",
+      password: "password",
+      rememberMe: false,
+    },
+  });
+
+  const onSubmit = async (data: FormData) => {
+    const result = await login(data.email, data.password);
+    if (result.success) {
+      toast.success("Welcome back!");
+      router.replace(from);
+    } else {
+      toast.error(result.message ?? "Invalid credentials");
+    }
+  };
+
   return (
-    <section className="bg-muted h-screen">
-      <div className="flex h-full items-center justify-center px-4">
-        <div className="bg-background border-muted w-full max-w-sm rounded-xl border px-6 py-10">
-          {/* Logo + Heading */}
-          <div className="flex flex-col items-center gap-4">
-            <Image
-              src={Logo}
-              alt="Mindful"
-              className="h-10 w-auto dark:invert"
-              height={60}
-              width={60}
-            />
-
-            <div className="text-center">
-              <h1 className="text-2xl font-semibold">{heading}</h1>
-              <p className="text-muted-foreground text-sm mt-1">{subheading}</p>
+    <div className="min-h-screen flex">
+      {/* Left: Form */}
+      <div className="flex-1 flex items-center justify-center p-6">
+        <motion.div
+          initial={{ opacity: 0, x: -24 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="w-full max-w-sm"
+        >
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2 mb-8">
+            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+              <Zap className="w-4 h-4 text-primary-foreground" />
             </div>
+            <span className="font-bold text-lg">{SITE.name}</span>
+          </Link>
+
+          <h1 className="text-2xl font-bold mb-1">Welcome back</h1>
+          <p className="text-muted-foreground text-sm mb-7">
+            Sign in to your account to continue
+          </p>
+
+          {/* Demo hint */}
+          <div className="bg-primary/8 border border-primary/20 rounded-xl p-3 mb-6 text-xs text-primary">
+            <strong>Demo:</strong> Use <code>alex@devpulse.io</code> for admin
+            access or any mock email to sign in.
           </div>
 
-          {/* Form */}
-          <form className="mt-6 flex flex-col gap-4">
-            <Input type="email" placeholder="Email" required />
-            <Input type="password" placeholder="Password" required />
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <div className="space-y-1.5">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                {...register("email")}
+                aria-invalid={!!errors.email}
+                className={errors.email ? "border-danger" : ""}
+              />
+              {errors.email && (
+                <p className="text-xs text-danger">{errors.email.message}</p>
+              )}
+            </div>
 
-            <Button type="submit" className="w-full">
-              {loginText}
-            </Button>
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password">Password</Label>
+                <Link
+                  href="/auth/forgot-password"
+                  className="text-xs text-primary hover:underline"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  {...register("password")}
+                  aria-invalid={!!errors.password}
+                  className={errors.password ? "border-danger pr-10" : "pr-10"}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((v) => !v)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
+              {errors.password && (
+                <p className="text-xs text-danger">{errors.password.message}</p>
+              )}
+            </div>
 
-            <Button type="button" variant="outline" className="w-full">
-              {/* <Google className="mr-2 size-5" /> */}
-              {googleText}
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="rememberMe"
+                checked={watch("rememberMe")}
+                onCheckedChange={(v) => setValue("rememberMe", !!v)}
+              />
+              <Label
+                htmlFor="rememberMe"
+                className="text-sm font-normal cursor-pointer"
+              >
+                Remember me for 30 days
+              </Label>
+            </div>
+
+            <Button
+              type="submit"
+              className="w-full gap-2"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <LogIn className="w-4 h-4" />
+              )}
+              {isSubmitting ? "Signing in…" : "Sign In"}
             </Button>
           </form>
 
-          {/* Footer */}
-          <div className="text-muted-foreground mt-6 flex justify-center gap-1 text-sm">
-            <p>{signupText}</p>
-            <a
-              href={signupUrl}
-              className="text-primary font-medium hover:underline"
-            >
-              Sign Up
-            </a>
+          <div className="relative my-6">
+            <Separator />
+            <span className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-2 text-xs text-muted-foreground">
+              or
+            </span>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-};
 
-export default LoginPage;
+          <p className="text-center text-sm text-muted-foreground">
+            Don't have an account?{" "}
+            <Link
+              href="/auth/register"
+              className="text-primary font-semibold hover:underline"
+            >
+              Sign up free
+            </Link>
+          </p>
+        </motion.div>
+      </div>
+
+      {/* Right: Visual */}
+      <div className="hidden lg:flex flex-1 bg-linear-to-br from-primary to-violet p-12 items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, x: 24 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="text-center text-white max-w-sm"
+        >
+          <div className="text-5xl mb-6">📚</div>
+          <h2 className="text-3xl font-bold mb-3">Join 4,200+ developers</h2>
+          <p className="text-white/80 leading-relaxed">
+            Access 127+ in-depth articles, save your favorites, track your
+            reading, and join the conversation.
+          </p>
+          <div className="grid grid-cols-2 gap-3 mt-8 text-sm">
+            {[
+              "React & TypeScript",
+              "AI & Machine Learning",
+              "DevOps & Cloud",
+              "Career Growth",
+            ].map((t) => (
+              <div key={t} className="bg-white/15 rounded-xl px-3 py-2.5">
+                {t}
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
