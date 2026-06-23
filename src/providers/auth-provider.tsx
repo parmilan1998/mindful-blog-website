@@ -29,7 +29,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Restore session on mount
     const stored = authService.getCurrentUser();
     if (stored) setUser(stored);
     setIsLoading(false);
