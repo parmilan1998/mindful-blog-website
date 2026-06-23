@@ -150,7 +150,7 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setShowPw((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-muted-foreground hover:text-foreground"
                 >
                   {showPw ? (
                     <EyeOff className="w-4 h-4" />
@@ -182,7 +182,7 @@ export default function RegisterPage() {
 
             <Button
               type="submit"
-              className="w-full gap-2"
+              className="w-full gap-2 cursor-pointer"
               disabled={isSubmitting}
             >
               {isSubmitting ? (

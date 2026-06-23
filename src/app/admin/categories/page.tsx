@@ -145,6 +145,7 @@ export default function AdminCategoriesPage() {
             setForm({ name: "", slug: "", description: "", color: "#2563EB" });
             setIsAddOpen(true);
           }}
+          className=" cursor-pointer"
         >
           <Plus className="w-4 h-4 mr-2" />
           New Category
@@ -246,7 +247,7 @@ export default function AdminCategoriesPage() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 shrink-0"
+                      className="h-8 w-8 shrink-0 cursor-pointer"
                     >
                       <MoreHorizontal className="w-4 h-4" />
                     </Button>
@@ -321,7 +322,7 @@ export default function AdminCategoriesPage() {
                     key={c}
                     type="button"
                     onClick={() => setForm({ ...form, color: c })}
-                    className="w-7 h-7 rounded-lg border-2 transition-transform hover:scale-110"
+                    className="w-7 h-7 rounded-lg border-2 transition-transform hover:scale-110 cursor-pointer"
                     style={{
                       backgroundColor: c,
                       borderColor: form.color === c ? "white" : "transparent",
@@ -346,10 +347,14 @@ export default function AdminCategoriesPage() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsAddOpen(false)}>
+            <Button
+              variant="outline"
+              onClick={() => setIsAddOpen(false)}
+              className=" cursor-pointer"
+            >
               Cancel
             </Button>
-            <Button onClick={handleSave}>
+            <Button onClick={handleSave} className=" cursor-pointer">
               {editTarget ? "Save Changes" : "Create Category"}
             </Button>
           </DialogFooter>

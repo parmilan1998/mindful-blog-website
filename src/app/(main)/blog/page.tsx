@@ -82,7 +82,7 @@ export default function BlogListPage() {
           <button
             onClick={() => setParam("category", "")}
             className={cn(
-              "w-full flex items-center justify-between text-sm px-3 py-2 rounded-lg transition-colors text-left",
+              "w-full flex items-center cursor-pointer justify-between text-sm px-3 py-2 rounded-lg transition-colors text-left",
               !category
                 ? "bg-primary/10 text-primary font-medium"
                 : "text-muted-foreground hover:bg-accent",
@@ -95,7 +95,7 @@ export default function BlogListPage() {
               key={cat.id}
               onClick={() => setParam("category", cat.slug)}
               className={cn(
-                "w-full flex items-center justify-between text-sm px-3 py-2 rounded-lg transition-colors text-left",
+                "w-full flex items-center cursor-pointer justify-between text-sm px-3 py-2 rounded-lg transition-colors text-left",
                 category === cat.slug
                   ? "bg-primary/10 text-primary font-medium"
                   : "text-muted-foreground hover:bg-accent",
@@ -127,7 +127,7 @@ export default function BlogListPage() {
               key={t.id}
               onClick={() => setParam("tag", tag === t.slug ? "" : t.slug)}
               className={cn(
-                "text-xs px-2.5 py-1 rounded-full border transition-all",
+                "text-xs px-2.5 py-1 rounded-full border transition-all cursor-pointer",
                 tag === t.slug
                   ? "bg-primary text-primary-foreground border-primary"
                   : "bg-card hover:border-primary/30 hover:text-primary text-muted-foreground",
@@ -145,7 +145,7 @@ export default function BlogListPage() {
           <Button
             variant="outline"
             size="sm"
-            className="w-full"
+            className="w-full cursor-pointer"
             onClick={clearFilters}
           >
             <X className="w-4 h-4 mr-2" />
@@ -200,13 +200,18 @@ export default function BlogListPage() {
                         setSearchInput("");
                         setParam("search", "");
                       }}
-                      className="absolute right-3 top-1/2 -translate-y-1/2"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
                     >
                       <X className="w-3.5 h-3.5 text-muted-foreground" />
                     </button>
                   )}
                 </div>
-                <Button type="submit" size="sm" variant="secondary">
+                <Button
+                  type="submit"
+                  size="sm"
+                  variant="secondary"
+                  className=" cursor-pointer"
+                >
                   Search
                 </Button>
               </form>
@@ -231,7 +236,7 @@ export default function BlogListPage() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="lg:hidden gap-2"
+                      className="lg:hidden gap-2 cursor-pointer"
                     >
                       <SlidersHorizontal className="w-4 h-4" />
                       Filters
@@ -264,7 +269,10 @@ export default function BlogListPage() {
                 {category && (
                   <Badge variant="secondary" className="gap-1.5 text-xs">
                     {MOCK_CATEGORIES.find((c) => c.slug === category)?.name}
-                    <button onClick={() => setParam("category", "")}>
+                    <button
+                      onClick={() => setParam("category", "")}
+                      className=" cursor-pointer"
+                    >
                       <X className="w-3 h-3" />
                     </button>
                   </Badge>
@@ -272,7 +280,10 @@ export default function BlogListPage() {
                 {tag && (
                   <Badge variant="secondary" className="gap-1.5 text-xs">
                     #{tag}
-                    <button onClick={() => setParam("tag", "")}>
+                    <button
+                      onClick={() => setParam("tag", "")}
+                      className=" cursor-pointer"
+                    >
                       <X className="w-3 h-3" />
                     </button>
                   </Badge>
@@ -285,6 +296,7 @@ export default function BlogListPage() {
                         setSearchInput("");
                         setParam("search", "");
                       }}
+                      className=" cursor-pointer"
                     >
                       <X className="w-3 h-3" />
                     </button>
@@ -292,7 +304,7 @@ export default function BlogListPage() {
                 )}
                 <button
                   onClick={clearFilters}
-                  className="text-xs text-muted-foreground hover:text-danger transition-colors ml-1"
+                  className="text-xs text-muted-foreground cursor-pointer hover:text-danger transition-colors ml-1"
                 >
                   Clear all
                 </button>

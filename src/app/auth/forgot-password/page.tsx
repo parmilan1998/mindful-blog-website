@@ -50,7 +50,11 @@ export default function ForgotPasswordPage() {
                 We've sent password reset instructions to{" "}
                 <strong>{email}</strong>.
               </p>
-              <Button asChild variant="outline" className="w-full">
+              <Button
+                asChild
+                variant="outline"
+                className="w-full cursor-pointer"
+              >
                 <Link href="/auth/login">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back to Sign In
@@ -83,7 +87,11 @@ export default function ForgotPasswordPage() {
                   />
                   {error && <p className="text-xs text-danger">{error}</p>}
                 </div>
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button
+                  type="submit"
+                  className="w-full cursor-pointer"
+                  disabled={loading}
+                >
                   {loading ? (
                     <Loader2 className="w-4 h-4 animate-spin mr-2" />
                   ) : null}

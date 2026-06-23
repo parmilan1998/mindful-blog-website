@@ -70,7 +70,7 @@ export default function UserDashboardPage() {
             </p>
           </div>
         </div>
-        <Button asChild>
+        <Button asChild className=" cursor-pointer">
           <Link href="/dashboard/posts/new">
             <PenSquare className="w-4 h-4 mr-2" />
             Write Post
@@ -98,7 +98,12 @@ export default function UserDashboardPage() {
         <Card className="rounded-2xl">
           <CardHeader className="flex flex-row items-center justify-between pb-3">
             <CardTitle className="text-base">My Recent Posts</CardTitle>
-            <Button variant="ghost" size="sm" asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              className="cursor-pointer"
+            >
               <Link href="/dashboard/posts">View all</Link>
             </Button>
           </CardHeader>
@@ -107,7 +112,12 @@ export default function UserDashboardPage() {
               <div className="text-center py-10">
                 <FileText className="w-8 h-8 text-muted-foreground/40 mx-auto mb-2" />
                 <p className="text-sm text-muted-foreground">No posts yet</p>
-                <Button size="sm" variant="outline" className="mt-3" asChild>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="mt-3 cursor-pointer"
+                  asChild
+                >
                   <Link href="/dashboard/posts/new">Write your first post</Link>
                 </Button>
               </div>
@@ -153,7 +163,12 @@ export default function UserDashboardPage() {
         <Card className="rounded-2xl">
           <CardHeader className="flex flex-row items-center justify-between pb-3">
             <CardTitle className="text-base">Notifications</CardTitle>
-            <Button variant="ghost" size="sm" asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              className=" cursor-pointer"
+            >
               <Link href="/dashboard/notifications">View all</Link>
             </Button>
           </CardHeader>
@@ -211,17 +226,27 @@ export default function UserDashboardPage() {
           <Progress value={user?.isVerified ? 80 : 60} className="h-2" />
           <div className="flex gap-3 mt-3">
             {!user?.avatar && (
-              <Button size="sm" variant="outline" asChild>
+              <Button
+                size="sm"
+                variant="outline"
+                asChild
+                className=" cursor-pointer"
+              >
                 <Link href="/dashboard/profile">Add avatar</Link>
               </Button>
             )}
             {!user?.bio && (
-              <Button size="sm" variant="outline" asChild>
+              <Button
+                size="sm"
+                variant="outline"
+                asChild
+                className=" cursor-pointer"
+              >
                 <Link href="/dashboard/profile">Add bio</Link>
               </Button>
             )}
             {!user?.isVerified && (
-              <Button size="sm" variant="outline">
+              <Button size="sm" variant="outline" className=" cursor-pointer">
                 Verify email
               </Button>
             )}

@@ -140,7 +140,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Button
                 size="lg"
-                className="gap-2 px-6 rounded-xl"
+                className="gap-2 px-6 rounded-xl cursor-pointer"
                 onClick={() => router.push("/blog")}
               >
                 <BookOpen className="w-4 h-4" />
@@ -149,7 +149,7 @@ export default function HomePage() {
               <Button
                 variant="outline"
                 size="lg"
-                className="gap-2 px-6 rounded-xl"
+                className="gap-2 px-6 rounded-xl cursor-pointer"
                 onClick={() => router.push("/auth/register")}
               >
                 <Zap className="w-4 h-4" />
@@ -284,7 +284,7 @@ export default function HomePage() {
               variant="outline"
               size="lg"
               asChild
-              className="rounded-xl px-8"
+              className="rounded-xl px-8 cursor-pointer"
             >
               <Link href="/blog">
                 Browse All Articles
@@ -452,7 +452,11 @@ export default function HomePage() {
                   className="flex-1 h-11 rounded-xl"
                   required
                 />
-                <Button type="submit" size="lg" className="rounded-xl shrink-0">
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="rounded-xl shrink-0 cursor-pointer"
+                >
                   Subscribe
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
@@ -548,7 +552,7 @@ export default function HomePage() {
               <Button
                 size="lg"
                 variant="secondary"
-                className="rounded-xl px-8"
+                className="rounded-xl px-8 cursor-pointer"
                 onClick={() => router.push("/auth/register")}
               >
                 Create Free Account
@@ -556,7 +560,7 @@ export default function HomePage() {
               <Button
                 size="lg"
                 variant="ghost"
-                className="rounded-xl text-white hover:bg-white/15"
+                className="rounded-xl text-white hover:bg-white/15 cursor-pointer"
                 onClick={() => router.push("/blog")}
               >
                 Browse First

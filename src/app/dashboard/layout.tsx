@@ -100,7 +100,7 @@ export default function DashboardLayout({
             <Button
               variant="ghost"
               size="icon"
-              className="relative"
+              className="relative cursor-pointer"
               onClick={() => router.push("/dashboard/notifications")}
             >
               <Bell className="h-4 w-4" />
@@ -115,7 +115,11 @@ export default function DashboardLayout({
             {/* User Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="rounded-full">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="rounded-full cursor-pointer"
+                >
                   <Avatar className="h-9 w-9">
                     <AvatarImage src={user?.avatar} alt={user?.name} />
                     <AvatarFallback>

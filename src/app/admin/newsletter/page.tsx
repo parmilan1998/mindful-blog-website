@@ -71,7 +71,7 @@ export default function AdminNewsletterPage() {
             Manage subscribers, campaigns, and email templates
           </p>
         </div>
-        <Button>
+        <Button className=" cursor-pointer">
           <Plus className="w-4 h-4 mr-2" />
           New Campaign
         </Button>
@@ -125,7 +125,7 @@ export default function AdminNewsletterPage() {
         ))}
       </div>
 
-      <Tabs value={subTab} onValueChange={setSubTab}>
+      <Tabs value={subTab} onValueChange={setSubTab} className="flex flex-col">
         <TabsList>
           <TabsTrigger value="subscribers">
             Subscribers ({MOCK_SUBSCRIBERS.length})
@@ -151,7 +151,7 @@ export default function AdminNewsletterPage() {
                   className="pl-9 h-9"
                 />
               </div>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className=" cursor-pointer">
                 Export CSV
               </Button>
             </div>
@@ -193,7 +193,7 @@ export default function AdminNewsletterPage() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-7 w-7 shrink-0"
+                        className="h-7 w-7 shrink-0 cursor-pointer"
                       >
                         <MoreHorizontal className="w-4 h-4" />
                       </Button>
@@ -276,13 +276,18 @@ export default function AdminNewsletterPage() {
                     </div>
                   </div>
                   <div className="flex gap-2 shrink-0">
-                    <Button variant="outline" size="sm">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className=" cursor-pointer"
+                    >
                       <Eye className="w-3.5 h-3.5 mr-1.5" />
                       View
                     </Button>
                     {campaign.status === "draft" && (
                       <Button
                         size="sm"
+                        className=" cursor-pointer"
                         onClick={() => toast.success("Campaign sent!")}
                       >
                         <Send className="w-3.5 h-3.5 mr-1.5" />
@@ -323,12 +328,16 @@ export default function AdminNewsletterPage() {
                   Updated {formatDate(template.updatedAt, "MMM d, yyyy")}
                 </p>
                 <div className="flex gap-2 mt-4">
-                  <Button variant="outline" size="sm" className="flex-1">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex-1 cursor-pointer"
+                  >
                     Edit
                   </Button>
                   <Button
                     size="sm"
-                    className="flex-1"
+                    className="flex-1 cursor-pointer"
                     onClick={() => toast.success("Template duplicated")}
                   >
                     Use
@@ -339,7 +348,7 @@ export default function AdminNewsletterPage() {
 
             {/* Add new template */}
             <button
-              className="border-2 border-dashed rounded-2xl p-5 text-center hover:border-primary/40 transition-colors group"
+              className="border-2 border-dashed rounded-2xl p-5 cursor-pointer text-center hover:border-primary/40 transition-colors group"
               onClick={() => toast.info("Template editor coming soon!")}
             >
               <Plus className="w-8 h-8 text-muted-foreground/40 mx-auto mb-2 group-hover:text-primary transition-colors" />

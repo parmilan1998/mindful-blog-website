@@ -92,7 +92,7 @@ export default function UserBookmarksPage() {
                     </span>
                   </div>
                 </div>
-                <button className="shrink-0 text-primary hover:text-primary/70 transition-colors">
+                <button className="shrink-0 cursor-pointer text-primary hover:text-primary/70 transition-colors">
                   <Bookmark className="w-4 h-4 fill-current" />
                 </button>
               </div>

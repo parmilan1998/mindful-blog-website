@@ -35,7 +35,7 @@ export function EmptyState({
         {description}
       </p>
       {action && (
-        <Button onClick={action.onClick} size="sm">
+        <Button onClick={action.onClick} size="sm" className=" cursor-pointer">
           {action.label}
         </Button>
       )}
@@ -71,7 +71,12 @@ export function ErrorState({
         {description}
       </p>
       {onRetry && (
-        <Button onClick={onRetry} variant="outline" size="sm">
+        <Button
+          onClick={onRetry}
+          variant="outline"
+          size="sm"
+          className=" cursor-pointer"
+        >
           <RefreshCw className="w-4 h-4 mr-2" />
           Try Again
         </Button>

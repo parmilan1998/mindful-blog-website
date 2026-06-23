@@ -77,7 +77,7 @@ export default function UserCommentsPage() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-7 w-7 text-muted-foreground hover:text-danger shrink-0"
+                  className="h-7 w-7 text-muted-foreground hover:text-danger shrink-0 cursor-pointer"
                   onClick={() => toast.success("Comment deleted")}
                 >
                   <Trash2 className="w-3.5 h-3.5" />

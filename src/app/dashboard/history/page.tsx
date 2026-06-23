@@ -35,6 +35,7 @@ export default function UserHistoryPage() {
           variant="outline"
           size="sm"
           onClick={() => toast.success("History cleared")}
+          className=" cursor-pointer"
         >
           <Trash2 className="w-4 h-4 mr-2" />
           Clear History

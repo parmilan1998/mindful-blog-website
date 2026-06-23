@@ -123,7 +123,7 @@ export default function AdminPostsPage() {
           <Button
             variant="ghost"
             size="sm"
-            className="-ml-2"
+            className="-ml-2 cursor-pointer"
             onClick={() => column.toggleSorting()}
           >
             Title <ArrowUpDown className="w-3.5 h-3.5 ml-1.5 opacity-60" />
@@ -189,7 +189,7 @@ export default function AdminPostsPage() {
           <Button
             variant="ghost"
             size="sm"
-            className="-ml-2"
+            className="-ml-2 cursor-pointer"
             onClick={() => column.toggleSorting()}
           >
             Views <ArrowUpDown className="w-3.5 h-3.5 ml-1.5 opacity-60" />
@@ -216,7 +216,11 @@ export default function AdminPostsPage() {
         cell: ({ row }) => (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-7 w-7">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 cursor-pointer"
+              >
                 <MoreHorizontal className="w-4 h-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -273,7 +277,7 @@ export default function AdminPostsPage() {
             {postsData?.meta.total ?? 0} total articles
           </p>
         </div>
-        <Button asChild>
+        <Button asChild className=" cursor-pointer">
           <Link href="/admin/posts/new">
             <Plus className="w-4 h-4 mr-2" />
             New Post
@@ -317,14 +321,18 @@ export default function AdminPostsPage() {
               <span className="text-sm text-muted-foreground">
                 {selectedCount} selected
               </span>
-              <Button variant="destructive" size="sm">
+              <Button
+                variant="destructive"
+                size="sm"
+                className=" cursor-pointer"
+              >
                 <Trash2 className="w-3.5 h-3.5 mr-1.5" />
                 Delete
               </Button>
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8"
+                className="h-8 w-8 cursor-pointer"
                 onClick={() => setRowSelection({})}
               >
                 <X className="w-3.5 h-3.5" />
@@ -397,6 +405,7 @@ export default function AdminPostsPage() {
               size="sm"
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
+              className=" cursor-pointer"
             >
               Previous
             </Button>
@@ -405,6 +414,7 @@ export default function AdminPostsPage() {
               size="sm"
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
+              className=" cursor-pointer"
             >
               Next
             </Button>

@@ -102,7 +102,11 @@ export function Footer() {
                   placeholder="your@email.com"
                   className="flex-1 h-9 text-sm"
                 />
-                <Button type="submit" size="sm" className="shrink-0">
+                <Button
+                  type="submit"
+                  size="sm"
+                  className="shrink-0 cursor-pointer"
+                >
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               </div>

@@ -87,7 +87,7 @@ export default function AdminSettingsPage() {
         </p>
       </div>
 
-      <Tabs defaultValue="general">
+      <Tabs defaultValue="general" className="flex flex-col">
         <TabsList className="flex-wrap h-auto gap-1">
           {SETTINGS_TABS.map(({ value, label, icon: Icon }) => (
             <TabsTrigger key={value} value={value} className="gap-1.5">
@@ -196,7 +196,11 @@ export default function AdminSettingsPage() {
                 </div>
 
                 <div className="flex justify-end">
-                  <Button type="submit" disabled={saving}>
+                  <Button
+                    type="submit"
+                    disabled={saving}
+                    className=" cursor-pointer"
+                  >
                     {saving ? (
                       <Loader2 className="w-4 h-4 animate-spin mr-2" />
                     ) : (
@@ -248,7 +252,10 @@ export default function AdminSettingsPage() {
                 </div>
               </div>
               <div className="flex justify-end">
-                <Button onClick={() => toast.success("SEO settings saved!")}>
+                <Button
+                  onClick={() => toast.success("SEO settings saved!")}
+                  className=" cursor-pointer"
+                >
                   <Save className="w-4 h-4 mr-2" />
                   Save SEO Settings
                 </Button>
@@ -301,7 +308,10 @@ export default function AdminSettingsPage() {
                 </div>
               ))}
               <div className="flex justify-end pt-2">
-                <Button onClick={() => toast.success("Social settings saved!")}>
+                <Button
+                  onClick={() => toast.success("Social settings saved!")}
+                  className=" cursor-pointer"
+                >
                   <Save className="w-4 h-4 mr-2" />
                   Save
                 </Button>
@@ -404,6 +414,7 @@ export default function AdminSettingsPage() {
                   onClick={() =>
                     toast.success("Notification preferences saved!")
                   }
+                  className=" cursor-pointer"
                 >
                   Save Preferences
                 </Button>
@@ -425,7 +436,7 @@ export default function AdminSettingsPage() {
                   {["Light", "Dark", "System"].map((t) => (
                     <button
                       key={t}
-                      className={`flex-1 py-3 rounded-xl border text-sm font-medium transition-all ${t === "System" ? "border-primary bg-primary/5 text-primary" : "hover:bg-accent"}`}
+                      className={`flex-1 py-3 rounded-xl cursor-pointer border text-sm font-medium transition-all ${t === "System" ? "border-primary bg-primary/5 text-primary" : "hover:bg-accent"}`}
                     >
                       {t}
                     </button>
@@ -445,7 +456,7 @@ export default function AdminSettingsPage() {
                   ].map((c) => (
                     <button
                       key={c}
-                      className="w-10 h-10 rounded-xl border-2 hover:scale-110 transition-transform"
+                      className="w-10 h-10 rounded-xl cursor-pointer border-2 hover:scale-110 transition-transform"
                       style={{
                         backgroundColor: c,
                         borderColor: c === "#2563EB" ? "white" : "transparent",
@@ -467,7 +478,7 @@ export default function AdminSettingsPage() {
                   ].map(({ label }) => (
                     <button
                       key={label}
-                      className={`flex-1 py-2 border rounded text-xs font-medium hover:bg-accent transition-colors ${label === "Medium" ? "border-primary bg-primary/5 text-primary" : ""}`}
+                      className={`flex-1 py-2 border cursor-pointer rounded text-xs font-medium hover:bg-accent transition-colors ${label === "Medium" ? "border-primary bg-primary/5 text-primary" : ""}`}
                     >
                       {label}
                     </button>
@@ -475,7 +486,10 @@ export default function AdminSettingsPage() {
                 </div>
               </div>
               <div className="flex justify-end">
-                <Button onClick={() => toast.success("Appearance saved!")}>
+                <Button
+                  onClick={() => toast.success("Appearance saved!")}
+                  className=" cursor-pointer"
+                >
                   <Save className="w-4 h-4 mr-2" /> Save Appearance
                 </Button>
               </div>

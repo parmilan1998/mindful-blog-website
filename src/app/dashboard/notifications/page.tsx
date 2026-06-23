@@ -44,7 +44,7 @@ export default function UserNotificationsPage() {
             notifications
           </p>
         </div>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" className=" cursor-pointer">
           <Check className="w-4 h-4 mr-2" />
           Mark all read
         </Button>
@@ -84,7 +84,7 @@ export default function UserNotificationsPage() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-7 w-7 text-muted-foreground hover:text-danger shrink-0"
+                className="h-7 w-7 text-muted-foreground hover:text-danger shrink-0 cursor-pointer"
               >
                 <Trash2 className="w-3.5 h-3.5" />
               </Button>

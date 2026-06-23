@@ -158,6 +158,7 @@ export default function PostEditorPage() {
             variant="outline"
             size="sm"
             onClick={() => setPreviewMode((v) => !v)}
+            className=" cursor-pointer"
           >
             <Eye className="w-4 h-4 mr-1.5" />
             {previewMode ? "Edit" : "Preview"}
@@ -180,7 +181,12 @@ export default function PostEditorPage() {
               </Select>
             )}
           />
-          <Button type="submit" form="post-form" disabled={isSubmitting}>
+          <Button
+            type="submit"
+            form="post-form"
+            disabled={isSubmitting}
+            className=" cursor-pointer"
+          >
             {isSubmitting ? (
               <Loader2 className="w-4 h-4 animate-spin mr-2" />
             ) : (
@@ -248,7 +254,7 @@ export default function PostEditorPage() {
                       type="button"
                       variant="ghost"
                       size="icon"
-                      className="h-7 w-7"
+                      className="h-7 w-7 cursor-pointer"
                       title={label}
                     >
                       <Icon className="w-3.5 h-3.5" />
@@ -399,6 +405,7 @@ const hello = 'world';
                           onClick={() =>
                             setSelectedTags((p) => p.filter((t) => t !== id))
                           }
+                          className=" cursor-pointer"
                         >
                           <X className="w-3 h-3" />
                         </button>
@@ -413,7 +420,7 @@ const hello = 'world';
                         key={tag.id}
                         type="button"
                         onClick={() => setSelectedTags((p) => [...p, tag.id])}
-                        className="text-xs px-2 py-0.5 border rounded-full text-muted-foreground hover:border-primary/40 hover:text-primary transition-all"
+                        className="text-xs px-2 py-0.5 border rounded-full cursor-pointer text-muted-foreground hover:border-primary/40 hover:text-primary transition-all"
                       >
                         #{tag.name}
                       </button>

@@ -187,7 +187,7 @@ export default function AboutPage() {
               written by people who actually ship software.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Button size="lg" asChild className="rounded-xl">
+              <Button size="lg" asChild className="rounded-xl cursor-pointer">
                 <Link href="/blog">
                   <BookOpen className="w-4 h-4 mr-2" />
                   Read Our Articles
@@ -197,7 +197,7 @@ export default function AboutPage() {
                 size="lg"
                 variant="outline"
                 asChild
-                className="rounded-xl"
+                className="rounded-xl cursor-pointer"
               >
                 <Link href="/auth/register">
                   <Users className="w-4 h-4 mr-2" />
@@ -593,7 +593,11 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
-            <Button asChild variant="outline" className="w-full mt-6">
+            <Button
+              asChild
+              variant="outline"
+              className="w-full mt-6 cursor-pointer"
+            >
               <Link href="/contact">
                 Send a Message <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
@@ -625,7 +629,11 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
-            <Button asChild variant="secondary" className="mt-6 w-full">
+            <Button
+              asChild
+              variant="secondary"
+              className="mt-6 w-full cursor-pointer"
+            >
               <Link href="/auth/register">
                 Apply Now <ArrowRight className="w-4 h-4 ml-2" />
               </Link>

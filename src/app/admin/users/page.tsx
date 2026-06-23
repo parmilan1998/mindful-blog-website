@@ -120,7 +120,7 @@ export default function AdminUsersPage() {
           <Button
             variant="ghost"
             size="sm"
-            className="-ml-2"
+            className="-ml-2 cursor-pointer"
             onClick={() => column.toggleSorting()}
           >
             User <ArrowUpDown className="w-3.5 h-3.5 ml-1.5 opacity-60" />
@@ -182,7 +182,7 @@ export default function AdminUsersPage() {
           <Button
             variant="ghost"
             size="sm"
-            className="-ml-2"
+            className="-ml-2 cursor-pointer"
             onClick={() => column.toggleSorting()}
           >
             Posts <ArrowUpDown className="w-3.5 h-3.5 ml-1.5 opacity-60" />
@@ -215,7 +215,11 @@ export default function AdminUsersPage() {
         cell: ({ row }) => (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-7 w-7">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 cursor-pointer"
+              >
                 <MoreHorizontal className="w-4 h-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -266,7 +270,7 @@ export default function AdminUsersPage() {
             {data?.meta.total ?? 0} registered users
           </p>
         </div>
-        <Button size="sm">
+        <Button size="sm" className=" cursor-pointer">
           <UserPlus className="w-4 h-4 mr-2" />
           Invite User
         </Button>
@@ -354,6 +358,7 @@ export default function AdminUsersPage() {
               size="sm"
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
+              className=" cursor-pointer"
             >
               Previous
             </Button>
@@ -362,6 +367,7 @@ export default function AdminUsersPage() {
               size="sm"
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
+              className=" cursor-pointer"
             >
               Next
             </Button>

@@ -128,7 +128,7 @@ export function DashboardSidebar({ variant = "user" }: DashboardSidebarProps) {
               </Badge>
             )}
           </Link>
-          <SidebarTrigger className="ml-auto" />
+          {/* <SidebarTrigger className="ml-auto" /> */}
         </div>
       </SidebarHeader>
 

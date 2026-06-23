@@ -94,6 +94,7 @@ export default function AdminTagsPage() {
             setForm({ name: "", slug: "" });
             setIsOpen(true);
           }}
+          className=" cursor-pointer"
         >
           <Plus className="w-4 h-4 mr-2" />
           New Tag
@@ -112,7 +113,12 @@ export default function AdminTagsPage() {
             />
           </div>
           {search && (
-            <Button variant="ghost" size="icon" onClick={() => setSearch("")}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setSearch("")}
+              className=" cursor-pointer"
+            >
               <X className="w-4 h-4" />
             </Button>
           )}
@@ -148,13 +154,13 @@ export default function AdminTagsPage() {
                     <div className="hidden group-hover:flex items-center gap-0.5 ml-1">
                       <button
                         onClick={() => openEdit(tag)}
-                        className="p-0.5 hover:text-primary transition-colors"
+                        className="p-0.5 hover:text-primary transition-colors cursor-pointer"
                       >
                         <Edit className="w-3 h-3" />
                       </button>
                       <button
                         onClick={() => setDeleteId(tag.id)}
-                        className="p-0.5 hover:text-danger transition-colors"
+                        className="p-0.5 hover:text-danger transition-colors cursor-pointer"
                       >
                         <Trash2 className="w-3 h-3" />
                       </button>
@@ -195,7 +201,7 @@ export default function AdminTagsPage() {
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-6 w-6"
+                          className="h-6 w-6 cursor-pointer"
                           onClick={() => openEdit(tag)}
                         >
                           <Edit className="w-3 h-3" />
@@ -203,7 +209,7 @@ export default function AdminTagsPage() {
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-6 w-6 text-danger hover:bg-danger/10"
+                          className="h-6 w-6 text-danger hover:bg-danger/10 cursor-pointer"
                           onClick={() => setDeleteId(tag.id)}
                         >
                           <Trash2 className="w-3 h-3" />
@@ -250,10 +256,14 @@ export default function AdminTagsPage() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsOpen(false)}>
+            <Button
+              variant="outline"
+              onClick={() => setIsOpen(false)}
+              className=" cursor-pointer"
+            >
               Cancel
             </Button>
-            <Button onClick={handleSave}>
+            <Button onClick={handleSave} className=" cursor-pointer">
               {editTarget ? "Save" : "Create Tag"}
             </Button>
           </DialogFooter>

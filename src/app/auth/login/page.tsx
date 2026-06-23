@@ -125,7 +125,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-muted-foreground hover:text-foreground"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
@@ -156,7 +156,7 @@ export default function LoginPage() {
 
             <Button
               type="submit"
-              className="w-full gap-2"
+              className="w-full gap-2 cursor-pointer"
               disabled={isSubmitting}
             >
               {isSubmitting ? (

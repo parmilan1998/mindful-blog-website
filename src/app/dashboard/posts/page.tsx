@@ -66,7 +66,7 @@ export default function UserPostsPage() {
             {userPosts.length} articles total
           </p>
         </div>
-        <Button asChild>
+        <Button asChild className=" cursor-pointer">
           <Link href="/dashboard/posts/new">
             <Plus className="w-4 h-4 mr-2" />
             Write Post
@@ -85,7 +85,7 @@ export default function UserPostsPage() {
           <button
             key={label}
             onClick={() => setStatusFilter(status)}
-            className={`text-left p-3 rounded-xl border transition-all ${
+            className={`text-left p-3 rounded-xl border transition-all cursor-pointer ${
               statusFilter === status
                 ? "border-primary bg-primary/5"
                 : "bg-card hover:bg-muted/30"
@@ -202,7 +202,7 @@ export default function UserPostsPage() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="h-8 w-8 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                     >
                       <MoreHorizontal className="w-4 h-4" />
                     </Button>

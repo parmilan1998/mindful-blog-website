@@ -118,7 +118,7 @@ export function Navbar() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-muted-foreground"
+                className="text-muted-foreground cursor-pointer"
                 onClick={() => setSearchOpen(true)}
               >
                 <Search className="w-4 h-4" />
@@ -132,7 +132,7 @@ export function Navbar() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="relative text-muted-foreground"
+                    className="relative text-muted-foreground cursor-pointer"
                     onClick={() => router.push("/dashboard/notifications")}
                   >
                     <Bell className="w-4 h-4" />
@@ -146,7 +146,10 @@ export function Navbar() {
                   {/* User menu */}
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" className="gap-2 px-2 h-9">
+                      <Button
+                        variant="ghost"
+                        className="gap-2 px-2 h-9 cursor-pointer"
+                      >
                         <Avatar size="sm">
                           <AvatarImage src={user.avatar} alt={user.name} />
                           <AvatarFallback>
@@ -211,10 +214,15 @@ export function Navbar() {
                 </div>
               ) : (
                 <div className="hidden sm:flex items-center gap-2">
-                  <Button variant="ghost" size="sm" asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    asChild
+                    className=" cursor-pointer"
+                  >
                     <Link href="/auth/login">Sign In</Link>
                   </Button>
-                  <Button size="sm" asChild>
+                  <Button size="sm" asChild className=" cursor-pointer">
                     <Link href="/auth/register">Get Started</Link>
                   </Button>
                 </div>
@@ -223,7 +231,11 @@ export function Navbar() {
               {/* Mobile menu */}
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="md:hidden">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="md:hidden cursor-pointer"
+                  >
                     <Menu className="w-5 h-5" />
                   </Button>
                 </SheetTrigger>
@@ -263,7 +275,7 @@ export function Navbar() {
                             </Link>
                             <button
                               onClick={handleLogout}
-                              className="w-full flex items-center px-3 py-2.5 rounded-lg text-sm font-medium text-danger hover:bg-danger/10"
+                              className="w-full flex items-center px-3 py-2.5 cursor-pointer rounded-lg text-sm font-medium text-danger hover:bg-danger/10"
                             >
                               Sign Out
                             </button>
@@ -271,10 +283,14 @@ export function Navbar() {
                         </>
                       ) : (
                         <div className="pt-4 border-t mt-4 space-y-2">
-                          <Button className="w-full" asChild>
+                          <Button className="w-full cursor-pointer" asChild>
                             <Link href="/auth/register">Get Started</Link>
                           </Button>
-                          <Button variant="outline" className="w-full" asChild>
+                          <Button
+                            variant="outline"
+                            className="w-full cursor-pointer"
+                            asChild
+                          >
                             <Link href="/auth/login">Sign In</Link>
                           </Button>
                         </div>
@@ -321,7 +337,7 @@ export function Navbar() {
                   type="button"
                   variant="ghost"
                   size="icon"
-                  className="absolute right-2 top-1/2 -translate-y-1/2"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
                   onClick={() => setSearchOpen(false)}
                 >
                   <X className="w-4 h-4" />

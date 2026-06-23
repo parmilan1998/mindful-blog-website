@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
 import {
   Save,
+  Eye,
   Globe,
   Loader2,
   Upload,
@@ -24,8 +26,13 @@ import {
   Quote,
   Minus,
   ArrowLeft,
-  Sparkles,
-  FileText,
+  Edit3,
+  Clock,
+  AlertCircle,
+  Trash2,
+  RefreshCw,
+  User,
+  BarChart3,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -43,17 +50,37 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { MOCK_CATEGORIES, MOCK_TAGS } from "@/mock/data";
-import { slugify, estimateReadingTime } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { MOCK_CATEGORIES, MOCK_TAGS, MOCK_USERS } from "@/mock/data";
+import {
+  estimateReadingTime,
+  formatDate,
+  formatRelativeDate,
+  formatNumber,
+  getInitials,
+} from "@/lib/utils";
 import { toast } from "sonner";
 import { PageBreadcrumb } from "@/components/common/Breadcrumb";
-import { useRouter } from "next/navigation";
+import type { PostStatus } from "@/types";
+import { useParams, useRouter } from "next/navigation";
 import { postService } from "@/services/post-service";
 import Link from "next/link";
 
@@ -66,6 +93,7 @@ const schema = z.object({
     .max(300),
   content: z.string().min(50, "Content must be at least 50 characters"),
   categoryId: z.string().min(1, "Select a category"),
+  authorId: z.string().min(1, "Select an author"),
   status: z.enum(["draft", "published", "scheduled", "archived"]),
   isFeatured: z.boolean(),
   isTrending: z.boolean(),
@@ -87,10 +115,35 @@ const TOOLBAR = [
   { icon: Minus, label: "Divider", insert: "\n---\n" },
 ];
 
-export default function CreatePostPage() {
+const STATUS_BADGE: Record<PostStatus, string> = {
+  published: "bg-success/15 text-success border-success/20",
+  draft: "bg-warning/15 text-warning-foreground border-warning/20",
+  scheduled: "bg-sky/15 text-sky border-sky/20",
+  archived: "bg-muted text-muted-foreground border-border",
+};
+
+const authors = MOCK_USERS.filter(
+  (u) => u.role === "admin" || u.role === "editor" || u.role === "author",
+);
+
+export default function AdminEditPostPage() {
+  const { id } = useParams<{ id: string }>();
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const [wordCount, setWordCount] = useState(0);
+  const [hasUnsaved, setHasUnsaved] = useState(false);
+
+  const {
+    data: post,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["admin-post-edit", id],
+    queryFn: () => postService.getPostById(id!),
+    enabled: !!id,
+  });
 
   const {
     register,
@@ -98,7 +151,8 @@ export default function CreatePostPage() {
     control,
     watch,
     setValue,
-    formState: { errors, isSubmitting },
+    reset,
+    formState: { errors, isSubmitting, isDirty },
   } = useForm<FormData>({
     // @ts-ignore
     resolver: zodResolver(schema),
@@ -108,32 +162,53 @@ export default function CreatePostPage() {
       excerpt: "",
       content: "",
       categoryId: "",
+      authorId: "",
       status: "draft",
       isFeatured: false,
       isTrending: false,
     },
   });
 
+  useEffect(() => {
+    if (post) {
+      reset({
+        title: post.title,
+        slug: post.slug,
+        excerpt: post.excerpt,
+        content: post.content,
+        categoryId: post.category.id,
+        authorId: post.author.id,
+        status: post.status,
+        isFeatured: post.isFeatured,
+        isTrending: post.isTrending,
+        seoTitle: post.seoTitle ?? "",
+        seoDescription: post.seoDescription ?? "",
+      });
+      setSelectedTags(post.tags.map((t) => t.id));
+      setWordCount(post.content.trim().split(/\s+/).filter(Boolean).length);
+    }
+  }, [post, reset]);
+
+  useEffect(() => {
+    setHasUnsaved(isDirty);
+  }, [isDirty]);
+
   const contentValue = watch("content");
 
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue("title", e.target.value);
-    setValue("slug", slugify(e.target.value));
-  };
-
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValue("content", e.target.value);
+    setValue("content", e.target.value, { shouldDirty: true });
     setWordCount(e.target.value.trim().split(/\s+/).filter(Boolean).length);
   };
 
   const insertMarkdown = (text: string) => {
-    const el = document.getElementById("post-content") as HTMLTextAreaElement;
+    const el = document.getElementById(
+      "admin-edit-content",
+    ) as HTMLTextAreaElement;
     if (!el) return;
     const start = el.selectionStart;
-    const end = el.selectionEnd;
-    const current = el.value;
-    const updated = current.slice(0, start) + text + current.slice(end);
-    setValue("content", updated);
+    const updated =
+      el.value.slice(0, start) + text + el.value.slice(el.selectionEnd);
+    setValue("content", updated, { shouldDirty: true });
     el.focus();
     setTimeout(
       () => el.setSelectionRange(start + text.length, start + text.length),
@@ -142,31 +217,79 @@ export default function CreatePostPage() {
   };
 
   const onSubmit = async (data: FormData) => {
+    if (!id) return;
     try {
       const category = MOCK_CATEGORIES.find((c) => c.id === data.categoryId);
+      const author = MOCK_USERS.find((u) => u.id === data.authorId);
       const tags = MOCK_TAGS.filter((t) => selectedTags.includes(t.id));
       const payload = {
         ...data,
         category: category!,
+        author: author!,
         tags,
         readingTime: estimateReadingTime(data.content),
         publishedAt:
-          data.status === "published" ? new Date().toISOString() : undefined,
+          data.status === "published" && post?.status !== "published"
+            ? new Date().toISOString()
+            : post?.publishedAt,
       };
-      const result = await postService.createPost(payload);
+      const result = await postService.updatePost(id, payload);
       if (result.success) {
-        toast.success("Post created successfully!");
-        router.push("/dashboard/posts");
+        setHasUnsaved(false);
+        queryClient.invalidateQueries({ queryKey: ["admin-post-edit", id] });
+        queryClient.invalidateQueries({ queryKey: ["admin", "posts"] });
+        toast.success("Post updated!");
       }
     } catch {
-      toast.error("Something went wrong. Please try again.");
+      toast.error("Something went wrong.");
     }
   };
 
-  const handleSaveDraft = () => {
-    setValue("status", "draft");
-    handleSubmit(onSubmit)();
+  const handleDelete = async () => {
+    if (!id) return;
+    await postService.deletePost(id);
+    queryClient.invalidateQueries({ queryKey: ["admin", "posts"] });
+    toast.success("Post deleted");
+    router.push("/admin/posts");
   };
+
+  if (isLoading) {
+    return (
+      <div className="space-y-5 max-w-6xl">
+        <Skeleton className="h-6 w-56" />
+        <Skeleton className="h-8 w-80" />
+        <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-6">
+          <div className="space-y-4">
+            <Skeleton className="h-28 w-full rounded-2xl" />
+            <Skeleton className="h-[500px] w-full rounded-2xl" />
+          </div>
+          <div className="space-y-4">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <Skeleton key={i} className="h-36 w-full rounded-2xl" />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (isError || !post) {
+    return (
+      <div className="max-w-md mx-auto py-16 text-center">
+        <AlertCircle className="w-12 h-12 text-danger mx-auto mb-4 opacity-60" />
+        <h2 className="text-xl font-bold mb-2">Post not found</h2>
+        <p className="text-muted-foreground text-sm mb-6">
+          This post doesn't exist or was removed.
+        </p>
+        <Button asChild className=" cursor-pointer">
+          <Link href="/admin/posts">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Posts
+          </Link>
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <TooltipProvider>
@@ -176,47 +299,59 @@ export default function CreatePostPage() {
         className="space-y-5 max-w-6xl"
       >
         {/* Header */}
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
             <PageBreadcrumb
               items={[
-                { label: "My Posts", href: "/dashboard/posts" },
-                { label: "New Post" },
+                { label: "Posts", href: "/admin/posts" },
+                { label: "Edit Post" },
               ]}
               className="mb-2"
             />
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-primary/15 flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-primary" />
+            <div className="flex items-center gap-2 mb-1">
+              <div className="w-8 h-8 rounded-xl bg-warning/15 flex items-center justify-center">
+                <Edit3 className="w-4 h-4 text-warning-foreground" />
               </div>
-              <h1 className="text-2xl font-bold">Write New Post</h1>
+              <h1 className="text-2xl font-bold">Edit Post</h1>
+              <Badge
+                className={`text-[11px] capitalize border ${STATUS_BADGE[post.status]}`}
+              >
+                {post.status}
+              </Badge>
             </div>
-            <p className="text-sm text-muted-foreground mt-0.5">
-              Share your knowledge with the community
-            </p>
+            <div className="flex items-center gap-3 text-xs text-muted-foreground">
+              <span className="flex items-center gap-1">
+                <Clock className="w-3 h-3" />
+                Updated {formatRelativeDate(post.updatedAt)}
+              </span>
+              {post.publishedAt && (
+                <span>
+                  Published {formatDate(post.publishedAt, "MMM d, yyyy")}
+                </span>
+              )}
+            </div>
           </div>
 
-          <div className="flex items-center gap-2 shrink-0">
-            <Button
-              variant="ghost"
-              size="sm"
-              asChild
-              className=" cursor-pointer"
-            >
-              <Link href="/dashboard/posts">
-                <ArrowLeft className="w-4 h-4 mr-1.5" />
-                Discard
-              </Link>
-            </Button>
+          <div className="flex items-center gap-2 shrink-0 flex-wrap">
+            {post.status === "published" && (
+              <Button
+                variant="ghost"
+                size="sm"
+                asChild
+                className=" cursor-pointer"
+              >
+                <Link href={`/blog/${post.slug}`} target="_blank">
+                  <Eye className="w-4 h-4 mr-1.5" /> View Live
+                </Link>
+              </Button>
+            )}
             <Button
               variant="outline"
               size="sm"
-              onClick={handleSaveDraft}
-              disabled={isSubmitting}
-              className=" cursor-pointer"
+              className="text-danger border-danger/30 hover:bg-danger/5 hover:text-danger cursor-pointer"
+              onClick={() => setDeleteOpen(true)}
             >
-              <Save className="w-4 h-4 mr-1.5" />
-              Save Draft
+              <Trash2 className="w-4 h-4 mr-1.5" /> Delete
             </Button>
             <Controller
               name="status"
@@ -228,9 +363,10 @@ export default function CreatePostPage() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="draft">Save as Draft</SelectItem>
-                    <SelectItem value="published">Publish Now</SelectItem>
-                    <SelectItem value="scheduled">Schedule</SelectItem>
+                    <SelectItem value="draft">Draft</SelectItem>
+                    <SelectItem value="published">Published</SelectItem>
+                    <SelectItem value="scheduled">Scheduled</SelectItem>
+                    <SelectItem value="archived">Archived</SelectItem>
                   </SelectContent>
                 </Select>
               )}
@@ -238,31 +374,40 @@ export default function CreatePostPage() {
             <Button
               onClick={handleSubmit(onSubmit)}
               disabled={isSubmitting}
-              className="gap-2 cursor-pointer"
+              className=" cursor-pointer"
             >
               {isSubmitting ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <Loader2 className="w-4 h-4 animate-spin mr-2" />
               ) : (
-                <FileText className="w-4 h-4" />
+                <Save className="w-4 h-4 mr-2" />
               )}
-              {isSubmitting ? "Publishing…" : "Publish Post"}
+              {isSubmitting ? "Saving…" : "Save Changes"}
             </Button>
           </div>
         </div>
 
-        <form id="create-form" onSubmit={handleSubmit(onSubmit)}>
+        {hasUnsaved && (
+          <Alert className="border-warning/40 bg-warning/8">
+            <AlertCircle className="h-4 w-4 text-warning-foreground" />
+            <AlertDescription className="text-sm text-warning-foreground">
+              Unsaved changes — remember to save before leaving.
+            </AlertDescription>
+          </Alert>
+        )}
+
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-6">
-            {/* ── Main Editor ────────────────────────────────────── */}
+            {/* ── Main ─────────────────────────────────────── */}
             <div className="space-y-4">
-              {/* Title */}
               <div className="bg-card border rounded-2xl p-5 space-y-3">
                 <div>
                   <Input
                     {...register("title")}
-                    onChange={handleTitleChange}
-                    placeholder="Your post title…"
+                    onChange={(e) =>
+                      setValue("title", e.target.value, { shouldDirty: true })
+                    }
+                    placeholder="Post title…"
                     className="text-2xl font-bold h-auto py-3 px-0 border-0 border-b rounded-none focus-visible:ring-0 placeholder:text-muted-foreground/40 bg-transparent"
-                    aria-label="Post title"
                   />
                   {errors.title && (
                     <p className="text-xs text-danger mt-1">
@@ -270,11 +415,9 @@ export default function CreatePostPage() {
                     </p>
                   )}
                 </div>
-
-                {/* Slug */}
                 <div className="flex items-center gap-2 text-xs">
                   <span className="text-muted-foreground font-medium shrink-0">
-                    URL slug:
+                    Slug:
                   </span>
                   <div className="flex-1 flex items-center gap-1 bg-muted/50 rounded-lg px-2 py-1">
                     <span className="text-muted-foreground/60">
@@ -282,20 +425,14 @@ export default function CreatePostPage() {
                     </span>
                     <Input
                       {...register("slug")}
-                      placeholder="post-slug"
                       className="h-5 text-xs font-mono text-primary border-0 p-0 focus-visible:ring-0 bg-transparent flex-1"
                     />
                   </div>
-                  {errors.slug && (
-                    <p className="text-danger">{errors.slug.message}</p>
-                  )}
                 </div>
               </div>
 
-              {/* Editor */}
               <div className="bg-card border rounded-2xl overflow-hidden">
-                <Tabs defaultValue="write" className="flex flex-col">
-                  {/* Editor toolbar */}
+                <Tabs defaultValue="write">
                   <div className="flex items-center justify-between border-b px-4 py-2 bg-muted/30">
                     <TabsList className="h-7 bg-transparent p-0 gap-1">
                       <TabsTrigger value="write" className="h-7 px-3 text-xs">
@@ -305,7 +442,6 @@ export default function CreatePostPage() {
                         👁 Preview
                       </TabsTrigger>
                     </TabsList>
-
                     <div className="flex items-center gap-0.5">
                       {TOOLBAR.map(({ icon: Icon, label, insert }) => (
                         <Tooltip key={label}>
@@ -326,7 +462,6 @@ export default function CreatePostPage() {
                         </Tooltip>
                       ))}
                     </div>
-
                     <div className="flex items-center gap-3 text-xs text-muted-foreground">
                       <span>{wordCount} words</span>
                       <span>
@@ -334,30 +469,12 @@ export default function CreatePostPage() {
                       </span>
                     </div>
                   </div>
-
                   <TabsContent value="write" className="m-0">
                     <Textarea
-                      id="post-content"
+                      id="admin-edit-content"
                       {...register("content")}
                       onChange={handleContentChange}
-                      placeholder={`Start writing your post in Markdown…
-
-# Your First Heading
-
-Write your story here. Use **bold**, *italic*, and \`inline code\` formatting.
-
-\`\`\`javascript
-// Code blocks are beautifully rendered
-const hello = 'world'
-\`\`\`
-
-> Blockquotes highlight important points
-
-- Bullet lists
-- Are easy to read`}
                       className="min-h-[500px] font-mono text-sm resize-none border-0 rounded-none focus-visible:ring-0 p-5 leading-relaxed"
-                      aria-label="Post content"
-                      aria-invalid={!!errors.content}
                     />
                     {errors.content && (
                       <p className="text-xs text-danger px-5 pb-3">
@@ -365,7 +482,6 @@ const hello = 'world'
                       </p>
                     )}
                   </TabsContent>
-
                   <TabsContent value="preview" className="m-0">
                     <div className="min-h-[500px] p-5 blog-prose">
                       {contentValue ? (
@@ -374,20 +490,16 @@ const hello = 'world'
                             return <h1 key={idx}>{line.slice(2)}</h1>;
                           if (line.startsWith("## "))
                             return <h2 key={idx}>{line.slice(3)}</h2>;
-                          if (line.startsWith("### "))
-                            return <h3 key={idx}>{line.slice(4)}</h3>;
                           if (line.startsWith("> "))
                             return (
                               <blockquote key={idx}>{line.slice(2)}</blockquote>
                             );
-                          if (line.startsWith("- "))
-                            return <li key={idx}>{line.slice(2)}</li>;
                           if (line.trim() === "") return <br key={idx} />;
                           return <p key={idx}>{line}</p>;
                         })
                       ) : (
                         <p className="text-muted-foreground text-sm">
-                          Nothing to preview yet. Start writing!
+                          Nothing to preview.
                         </p>
                       )}
                     </div>
@@ -395,57 +507,127 @@ const hello = 'world'
                 </Tabs>
               </div>
 
-              {/* Excerpt */}
               <div className="bg-card border rounded-2xl p-5 space-y-2">
-                <Label className="font-semibold">
-                  Excerpt
-                  <span className="ml-1 text-xs font-normal text-muted-foreground">
-                    (shown in card previews)
-                  </span>
-                </Label>
+                <Label className="font-semibold">Excerpt</Label>
                 <Textarea
                   {...register("excerpt")}
-                  placeholder="A brief, compelling summary of your post…"
                   className="resize-none h-20 text-sm"
-                  aria-invalid={!!errors.excerpt}
                 />
-                <div className="flex items-center justify-between">
-                  {errors.excerpt ? (
-                    <p className="text-xs text-danger">
-                      {errors.excerpt.message}
-                    </p>
-                  ) : (
-                    <p className="text-xs text-muted-foreground">
-                      {watch("excerpt")?.length ?? 0}/300 characters
-                    </p>
-                  )}
-                </div>
+                {errors.excerpt && (
+                  <p className="text-xs text-danger">
+                    {errors.excerpt.message}
+                  </p>
+                )}
               </div>
             </div>
 
-            {/* ── Right Sidebar ──────────────────────────────────── */}
+            {/* ── Sidebar ──────────────────────────────────── */}
             <div className="space-y-4">
+              {/* Analytics (admin-only) */}
+              <Card className="rounded-2xl">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <BarChart3 className="w-4 h-4 text-primary" /> Analytics
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[
+                      { label: "Views", value: formatNumber(post.viewCount) },
+                      { label: "Likes", value: post.likeCount },
+                      { label: "Comments", value: post.commentCount },
+                      { label: "Bookmarks", value: post.bookmarkCount },
+                    ].map(({ label, value }) => (
+                      <div
+                        key={label}
+                        className="bg-muted/40 rounded-lg p-2.5 text-center"
+                      >
+                        <p className="text-sm font-bold">{value}</p>
+                        <p className="text-[11px] text-muted-foreground">
+                          {label}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
               {/* Featured Image */}
               <Card className="rounded-2xl">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm flex items-center gap-2">
-                    <Image className="w-4 h-4 text-primary" />
-                    Featured Image
+                    <Image className="w-4 h-4 text-primary" /> Featured Image
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <label className="block cursor-pointer">
-                    <div className="border-2 border-dashed rounded-xl p-6 text-center hover:border-primary/50 hover:bg-primary/3 transition-all group">
-                      <Upload className="w-8 h-8 text-muted-foreground/40 mx-auto mb-2 group-hover:text-primary transition-colors" />
-                      <p className="text-xs font-medium text-muted-foreground group-hover:text-primary transition-colors">
-                        Click to upload
-                      </p>
-                      <p className="text-[10px] text-muted-foreground/60 mt-0.5">
-                        PNG, JPG, WebP · max 5 MB
-                      </p>
+                  {post.featuredImage ? (
+                    <div className="relative group rounded-xl overflow-hidden">
+                      <img
+                        src={post.featuredImage}
+                        alt="Featured"
+                        className="w-full h-32 object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          className="text-xs h-7 cursor-pointer"
+                        >
+                          <RefreshCw className="w-3 h-3 mr-1" /> Replace
+                        </Button>
+                      </div>
                     </div>
-                    <input type="file" className="hidden" accept="image/*" />
-                  </label>
+                  ) : (
+                    <label className="block cursor-pointer">
+                      <div className="border-2 border-dashed rounded-xl p-5 text-center hover:border-primary/50 hover:bg-primary/3 transition-all group">
+                        <Upload className="w-7 h-7 text-muted-foreground/40 mx-auto mb-2 group-hover:text-primary transition-colors" />
+                        <p className="text-xs text-muted-foreground">
+                          Click to upload
+                        </p>
+                      </div>
+                      <input type="file" className="hidden" accept="image/*" />
+                    </label>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Author */}
+              <Card className="rounded-2xl">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <User className="w-4 h-4 text-primary" /> Author
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Controller
+                    name="authorId"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select author…" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {authors.map((a) => (
+                            <SelectItem key={a.id} value={a.id}>
+                              <span className="flex items-center gap-2">
+                                <Avatar size="sm">
+                                  <AvatarImage src={a.avatar} />
+                                  <AvatarFallback>
+                                    {getInitials(a.name)}
+                                  </AvatarFallback>
+                                </Avatar>
+                                {a.name}
+                              </span>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
                 </CardContent>
               </Card>
 
@@ -453,9 +635,7 @@ const hello = 'world'
               <Card className="rounded-2xl">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm flex items-center gap-2">
-                    <FolderOpen className="w-4 h-4 text-primary" />
-                    Category
-                    <span className="text-danger text-xs">*</span>
+                    <FolderOpen className="w-4 h-4 text-primary" /> Category
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -469,16 +649,15 @@ const hello = 'world'
                       >
                         <SelectTrigger
                           className={errors.categoryId ? "border-danger" : ""}
-                          aria-invalid={!!errors.categoryId}
                         >
-                          <SelectValue placeholder="Choose a category…" />
+                          <SelectValue placeholder="Choose category…" />
                         </SelectTrigger>
                         <SelectContent>
                           {MOCK_CATEGORIES.map((cat) => (
                             <SelectItem key={cat.id} value={cat.id}>
                               <span className="flex items-center gap-2">
                                 <span
-                                  className="w-2.5 h-2.5 rounded-full shrink-0"
+                                  className="w-2.5 h-2.5 rounded-full"
                                   style={{ backgroundColor: cat.color }}
                                 />
                                 {cat.name}
@@ -489,11 +668,6 @@ const hello = 'world'
                       </Select>
                     )}
                   />
-                  {errors.categoryId && (
-                    <p className="text-xs text-danger mt-1">
-                      {errors.categoryId.message}
-                    </p>
-                  )}
                 </CardContent>
               </Card>
 
@@ -501,18 +675,17 @@ const hello = 'world'
               <Card className="rounded-2xl">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm flex items-center gap-2">
-                    <Tag className="w-4 h-4 text-primary" />
-                    Tags
+                    <Tag className="w-4 h-4 text-primary" /> Tags
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3">
+                <CardContent className="space-y-2">
                   {selectedTags.length > 0 && (
                     <div className="flex flex-wrap gap-1.5">
-                      {selectedTags.map((id) => {
-                        const tag = MOCK_TAGS.find((t) => t.id === id);
+                      {selectedTags.map((tid) => {
+                        const tag = MOCK_TAGS.find((t) => t.id === tid);
                         return tag ? (
                           <Badge
-                            key={id}
+                            key={tid}
                             variant="secondary"
                             className="text-xs gap-1 pl-2.5"
                           >
@@ -521,10 +694,10 @@ const hello = 'world'
                               type="button"
                               onClick={() =>
                                 setSelectedTags((p) =>
-                                  p.filter((t) => t !== id),
+                                  p.filter((t) => t !== tid),
                                 )
                               }
-                              className="hover:text-danger transition-colors cursor-pointer"
+                              className=" cursor-pointer"
                             >
                               <X className="w-3 h-3" />
                             </button>
@@ -533,14 +706,14 @@ const hello = 'world'
                       })}
                     </div>
                   )}
-                  <div className="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto pr-1">
+                  <div className="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto">
                     {MOCK_TAGS.filter((t) => !selectedTags.includes(t.id)).map(
                       (tag) => (
                         <button
                           key={tag.id}
                           type="button"
                           onClick={() => setSelectedTags((p) => [...p, tag.id])}
-                          className="text-xs px-2.5 py-1 cursor-pointer border rounded-full text-muted-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all"
+                          className="text-xs px-2 py-0.5 border rounded-full cursor-pointer text-muted-foreground hover:border-primary/50 hover:text-primary transition-all"
                         >
                           #{tag.name}
                         </button>
@@ -554,22 +727,19 @@ const hello = 'world'
               <Card className="rounded-2xl">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm flex items-center gap-2">
-                    <Settings className="w-4 h-4 text-primary" />
-                    Publishing Options
+                    <Settings className="w-4 h-4 text-primary" /> Options
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-3">
                   <Controller
                     name="isFeatured"
                     control={control}
                     render={({ field }) => (
                       <div className="flex items-center justify-between">
                         <div>
-                          <Label className="text-sm cursor-pointer">
-                            Featured Post
-                          </Label>
+                          <Label className="text-sm">Featured</Label>
                           <p className="text-xs text-muted-foreground">
-                            Show on homepage hero
+                            Homepage hero
                           </p>
                         </div>
                         <Switch
@@ -586,11 +756,9 @@ const hello = 'world'
                     render={({ field }) => (
                       <div className="flex items-center justify-between">
                         <div>
-                          <Label className="text-sm cursor-pointer">
-                            Mark as Trending
-                          </Label>
+                          <Label className="text-sm">Trending</Label>
                           <p className="text-xs text-muted-foreground">
-                            Boost visibility in feeds
+                            Boost visibility
                           </p>
                         </div>
                         <Switch
@@ -606,7 +774,7 @@ const hello = 'world'
               {/* SEO */}
               <Card className="rounded-2xl">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm">SEO Settings</CardTitle>
+                  <CardTitle className="text-sm">SEO</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="space-y-1.5">
@@ -621,12 +789,12 @@ const hello = 'world'
                   </div>
                   <div className="space-y-1.5">
                     <Label className="text-xs text-muted-foreground">
-                      SEO Description
+                      Meta Description
                     </Label>
                     <Textarea
                       {...register("seoDescription")}
                       placeholder="Defaults to excerpt"
-                      className="resize-none h-20 text-sm"
+                      className="resize-none h-16 text-sm"
                     />
                   </div>
                 </CardContent>
@@ -634,6 +802,29 @@ const hello = 'world'
             </div>
           </div>
         </form>
+
+        {/* Delete Dialog */}
+        <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Delete Post</AlertDialogTitle>
+              <AlertDialogDescription>
+                Permanently delete <strong>"{post.title}"</strong>? All
+                comments, likes, and bookmarks will be removed. This cannot be
+                undone.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                className="bg-danger hover:bg-danger/90"
+                onClick={handleDelete}
+              >
+                <Trash2 className="w-4 h-4 mr-2" /> Delete Permanently
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </motion.div>
     </TooltipProvider>
   );

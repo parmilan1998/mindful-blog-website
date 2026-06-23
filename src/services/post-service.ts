@@ -121,6 +121,11 @@ export const postService = {
     return MOCK_POSTS.find((p) => p.slug === slug) ?? null;
   },
 
+  async getPostById(id: string): Promise<Post | null> {
+    await delay(200);
+    return MOCK_POSTS.find((p) => p.id === id) ?? null;
+  },
+
   async getRelatedPosts(postId: string, categoryId: string): Promise<Post[]> {
     await delay(200);
     return MOCK_POSTS.filter(

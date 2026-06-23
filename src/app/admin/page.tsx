@@ -67,7 +67,7 @@ export default function AdminDashboardPage() {
             Welcome back! Here's what's happening.
           </p>
         </div>
-        <Button asChild size="sm">
+        <Button asChild size="sm" className=" cursor-pointer">
           <Link href="/admin/posts/new">
             <FileText className="w-4 h-4 mr-2" />
             New Post
@@ -280,7 +280,12 @@ export default function AdminDashboardPage() {
               <CardTitle className="text-base">Recent Posts</CardTitle>
               <CardDescription>Latest articles</CardDescription>
             </div>
-            <Button variant="ghost" size="sm" asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              className=" cursor-pointer"
+            >
               <Link href="/admin/posts">
                 View all <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
               </Link>
@@ -339,7 +344,12 @@ export default function AdminDashboardPage() {
               <CardTitle className="text-base">Recent Users</CardTitle>
               <CardDescription>Newest registrations</CardDescription>
             </div>
-            <Button variant="ghost" size="sm" asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              className=" cursor-pointer"
+            >
               <Link href="/admin/users">
                 View all <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
               </Link>

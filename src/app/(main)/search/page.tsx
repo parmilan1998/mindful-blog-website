@@ -51,7 +51,7 @@ export default function SearchPage() {
                 <button
                   type="button"
                   onClick={() => setInput("")}
-                  className="absolute right-4 top-1/2 -translate-y-1/2"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
                 >
                   <X className="w-4 h-4 text-muted-foreground" />
                 </button>

@@ -93,7 +93,10 @@ export default function BlogDetailPage() {
         <p className="text-muted-foreground mb-6">
           This post may have been moved or deleted.
         </p>
-        <Button onClick={() => router.push("/blog")}>
+        <Button
+          onClick={() => router.push("/blog")}
+          className=" cursor-pointer"
+        >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back href Blog
         </Button>
@@ -272,6 +275,7 @@ export default function BlogDetailPage() {
                 variant="outline"
                 size="sm"
                 onClick={() => handleShare("twitter")}
+                className=" cursor-pointer"
               >
                 <AtSign className="w-4 h-4 mr-1.5" />
                 Twitter
@@ -280,6 +284,7 @@ export default function BlogDetailPage() {
                 variant="outline"
                 size="sm"
                 onClick={() => handleShare("linkedin")}
+                className=" cursor-pointer"
               >
                 <Link2 className="w-4 h-4 mr-1.5" />
                 LinkedIn
@@ -288,6 +293,7 @@ export default function BlogDetailPage() {
                 variant="outline"
                 size="icon"
                 onClick={() => handleShare("copy")}
+                className=" cursor-pointer"
               >
                 <Link2 className="w-4 h-4" />
               </Button>
@@ -364,10 +370,10 @@ export default function BlogDetailPage() {
                           {comment.content}
                         </p>
                         <div className="flex items-center gap-3 mt-2">
-                          <button className="text-xs text-muted-foreground hover:text-danger flex items-center gap-1 transition-colors">
+                          <button className="text-xs cursor-pointer text-muted-foreground hover:text-danger flex items-center gap-1 transition-colors">
                             <Heart className="w-3 h-3" /> {comment.likeCount}
                           </button>
-                          <button className="text-xs text-muted-foreground hover:text-primary transition-colors">
+                          <button className="text-xs cursor-pointer text-muted-foreground hover:text-primary transition-colors">
                             Reply
                           </button>
                         </div>
@@ -417,7 +423,7 @@ export default function BlogDetailPage() {
               <div className="bg-card border rounded-2xl p-5 space-y-2">
                 <Button
                   variant="outline"
-                  className="w-full gap-2"
+                  className="w-full gap-2 cursor-pointer"
                   size="sm"
                   onClick={() => toast.info("Bookmark saved!")}
                 >
@@ -426,7 +432,7 @@ export default function BlogDetailPage() {
                 </Button>
                 <Button
                   variant="outline"
-                  className="w-full gap-2"
+                  className="w-full gap-2 cursor-pointer"
                   size="sm"
                   onClick={() => toast.info("Liked!")}
                 >
@@ -435,7 +441,7 @@ export default function BlogDetailPage() {
                 </Button>
                 <Button
                   variant="outline"
-                  className="w-full gap-2"
+                  className="w-full gap-2 cursor-pointer"
                   size="sm"
                   onClick={() => handleShare("copy")}
                 >

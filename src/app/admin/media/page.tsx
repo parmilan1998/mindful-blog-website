@@ -49,11 +49,11 @@ export default function AdminMediaPage() {
           <p className="text-sm text-muted-foreground">{files.length} files</p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" className=" cursor-pointer">
             <FolderPlus className="w-4 h-4 mr-2" />
             New Folder
           </Button>
-          <Button size="sm">
+          <Button size="sm" className=" cursor-pointer">
             <Upload className="w-4 h-4 mr-2" />
             Upload Files
           </Button>
@@ -87,7 +87,7 @@ export default function AdminMediaPage() {
           <Button
             variant={viewMode === "grid" ? "default" : "ghost"}
             size="icon"
-            className="h-7 w-7"
+            className="h-7 w-7 cursor-pointer"
             onClick={() => setViewMode("grid")}
           >
             <Grid3X3 className="w-3.5 h-3.5" />
@@ -95,7 +95,7 @@ export default function AdminMediaPage() {
           <Button
             variant={viewMode === "list" ? "default" : "ghost"}
             size="icon"
-            className="h-7 w-7"
+            className="h-7 w-7 cursor-pointer"
             onClick={() => setViewMode("list")}
           >
             <List className="w-3.5 h-3.5" />
@@ -161,7 +161,7 @@ export default function AdminMediaPage() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-7 w-7"
+                    className="h-7 w-7 cursor-pointer"
                     title="Copy URL"
                     onClick={() => toast.success("URL copied")}
                   >
@@ -170,7 +170,7 @@ export default function AdminMediaPage() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-7 w-7 text-danger hover:bg-danger/10"
+                    className="h-7 w-7 text-danger hover:bg-danger/10 cursor-pointer"
                     onClick={() => handleDelete(file.id)}
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -228,7 +228,7 @@ export default function AdminMediaPage() {
               <div className="flex gap-2 pt-2">
                 <Button
                   variant="outline"
-                  className="flex-1"
+                  className="flex-1 cursor-pointer"
                   onClick={() => {
                     navigator.clipboard.writeText(selected.url);
                     toast.success("URL copied!");
@@ -239,6 +239,7 @@ export default function AdminMediaPage() {
                 <Button
                   variant="destructive"
                   size="icon"
+                  className=" cursor-pointer"
                   onClick={() => handleDelete(selected.id)}
                 >
                   <Trash2 className="w-4 h-4" />

@@ -229,7 +229,7 @@ export default function AuthorPage() {
 
             {/* Follow button */}
             <div className="shrink-0">
-              <Button className="gap-2">
+              <Button className="gap-2 cursor-pointer">
                 <Users className="w-4 h-4" />
                 Follow
               </Button>
@@ -401,7 +401,7 @@ export default function AuthorPage() {
                 Get notified when {author.name.split(" ")[0]} publishes a new
                 article.
               </p>
-              <Button size="sm" className="w-full">
+              <Button size="sm" className="w-full cursor-pointer">
                 Follow Author
               </Button>
             </div>

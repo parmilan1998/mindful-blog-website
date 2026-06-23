@@ -146,7 +146,7 @@ export default function AdminCommentsPage() {
                       <Button
                         size="icon"
                         variant="ghost"
-                        className="h-7 w-7 text-success hover:bg-success/10"
+                        className="h-7 w-7 text-success hover:bg-success/10 cursor-pointer"
                         title="Approve"
                         onClick={() => approveMutation.mutate(comment.id)}
                       >
@@ -157,7 +157,7 @@ export default function AdminCommentsPage() {
                       <Button
                         size="icon"
                         variant="ghost"
-                        className="h-7 w-7 text-warning hover:bg-warning/10"
+                        className="h-7 w-7 text-warning hover:bg-warning/10 cursor-pointer"
                         title="Reject"
                         onClick={() => rejectMutation.mutate(comment.id)}
                       >
@@ -167,7 +167,7 @@ export default function AdminCommentsPage() {
                     <Button
                       size="icon"
                       variant="ghost"
-                      className="h-7 w-7 text-danger hover:bg-danger/10"
+                      className="h-7 w-7 text-danger hover:bg-danger/10 cursor-pointer"
                       title="Delete"
                       onClick={() => deleteMutation.mutate(comment.id)}
                     >
