@@ -16,6 +16,7 @@ import { SITE } from "@/constants";
 import { useAuth } from "@/providers/auth-provider";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 const schema = z.object({
   email: z.string().email("Invalid email address"),
@@ -71,7 +72,7 @@ export default function LoginPage() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 mb-8">
             <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <Zap className="w-4 h-4 text-primary-foreground" />
+              <Image src="/icon.svg" alt="Logo" width={24} height={24} />
             </div>
             <span className="font-bold text-lg">{SITE.name}</span>
           </Link>

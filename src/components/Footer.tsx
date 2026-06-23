@@ -5,6 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { SITE, NAV_LINKS } from "@/constants";
 import { MOCK_CATEGORIES } from "@/mock/data";
 import Link from "next/link";
+import Image from "next/image";
 
 const SOCIAL_LINKS = [
   { icon: AtSign, href: "https://twitter.com/devpulse", label: "Twitter" },
@@ -26,7 +27,7 @@ export function Footer() {
           <div className="space-y-4 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <Zap className="w-4 h-4 text-primary-foreground" />
+                <Image src="/icon.svg" alt="Logo" width={24} height={24} />
               </div>
               <span className="font-bold text-lg">{SITE.name}</span>
             </Link>

@@ -32,6 +32,7 @@ import Link from "next/link";
 import { useAuth } from "@/providers/auth-provider";
 import { usePathname, useRouter } from "next/navigation";
 import { ModeToggle } from "./mode-toggle";
+import Image from "next/image";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -87,7 +88,7 @@ export function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 group">
               <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <Zap className="w-4 h-4 text-primary-foreground" />
+                <Image src="/icon.svg" alt="Logo" width={24} height={24} />
               </div>
               <span className="font-bold text-lg tracking-tight">
                 {SITE.name}
