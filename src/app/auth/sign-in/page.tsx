@@ -17,6 +17,8 @@ import { useAuth } from "@/providers/auth-provider";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub, FaFacebook } from "react-icons/fa";
 
 const schema = z.object({
   email: z.string().email("Invalid email address"),
@@ -83,10 +85,10 @@ export default function LoginPage() {
           </p>
 
           {/* Demo hint */}
-          <div className="bg-primary/8 border border-primary/20 rounded-xl p-3 mb-6 text-xs text-primary">
+          {/* <div className="bg-primary/8 border border-primary/20 rounded-xl p-3 mb-6 text-xs text-primary">
             <strong>Demo:</strong> Use <code>alex@devpulse.io</code> for admin
             access or any mock email to sign in.
-          </div>
+          </div> */}
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-1.5">
@@ -170,6 +172,50 @@ export default function LoginPage() {
           </form>
 
           <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-3 text-muted-foreground">
+                Or continue with social media
+              </span>
+            </div>
+          </div>
+
+          <div className="space-y-3 my-6">
+            {/* GitHub + Facebook + Google*/}
+            <div className="grid grid-cols-3 gap-3">
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full h-11 cursor-pointer justify-center gap-3"
+                // onClick={() => handleSocialLogin("google")}
+              >
+                <FcGoogle className="size-5" />
+                <span className="hidden sm:inline">Google</span>
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                className="h-11 cursor-pointer justify-center gap-2"
+              >
+                <FaGithub className="size-5" />
+                <span className="hidden sm:inline">GitHub</span>
+              </Button>
+
+              <Button
+                type="button"
+                variant="outline"
+                className="h-11 cursor-pointer justify-center gap-2"
+              >
+                <FaFacebook className="size-5 text-[#1877F2]" />
+                <span className="hidden sm:inline">Facebook</span>
+              </Button>
+            </div>
+          </div>
+
+          <div className="relative my-6">
             <Separator />
             <span className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-2 text-xs text-muted-foreground">
               or
@@ -179,7 +225,7 @@ export default function LoginPage() {
           <p className="text-center text-sm text-muted-foreground">
             Don't have an account?{" "}
             <Link
-              href="/auth/register"
+              href="/auth/sign-up"
               className="text-primary font-semibold hover:underline"
             >
               Sign up free

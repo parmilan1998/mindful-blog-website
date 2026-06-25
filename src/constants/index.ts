@@ -5,7 +5,7 @@ export const SITE = {
     "The modern blog for developers — React, TypeScript, AI, DevOps, and beyond.",
   url: "https://devpulse.io",
   twitter: "@devpulse",
-  logo: "/logo.svg",
+  logo: "/icon.svg",
 };
 
 export const NAV_LINKS = [

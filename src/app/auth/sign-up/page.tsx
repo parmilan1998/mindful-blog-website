@@ -16,6 +16,10 @@ import { authService } from "@/services/auth-service";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub, FaFacebook } from "react-icons/fa";
+import { signUp } from "@/lib/actions/auth/register.action";
+
 const schema = z
   .object({
     name: z.string().min(2, "Name must be at least 2 characters"),
@@ -23,16 +27,24 @@ const schema = z
     password: z.string().min(8, "Password must be at least 8 characters"),
     confirmPassword: z.string(),
   })
-  .refine((d) => d.password === d.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
+  .superRefine(({ password, confirmPassword }, ctx) => {
+    if (password !== confirmPassword) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["confirmPassword"],
+        message: "Passwords do not match",
+      });
+    }
   });
 
 type FormData = z.infer<typeof schema>;
 
 export default function RegisterPage() {
-  const [showPw, setShowPw] = useState(false);
   const router = useRouter();
+
+  const [showPw, setShowPw] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<String>("");
 
   const {
     register,
@@ -41,15 +53,23 @@ export default function RegisterPage() {
   } = useForm<FormData>({
     // @ts-ignore
     resolver: zodResolver(schema),
+    mode: "onChange",
   });
 
   const onSubmit = async (data: FormData) => {
-    const res = await authService.register(data);
-    if (res.success) {
-      toast.success("Account created! Welcome to Mindful 🎉");
-      router.push("/dashboard");
-    } else {
-      toast.error(res.message ?? "Registration failed");
+    try {
+      const result = await signUp(data.name, data.email, data.password);
+
+      if (!result) {
+        setError("Registration failed");
+        return;
+      }
+
+      console.log({ result });
+
+      toast.success("Account created successfully!");
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
     }
   };
 
@@ -97,7 +117,7 @@ export default function RegisterPage() {
           animate={{ opacity: 1, x: 0 }}
           className="w-full max-w-sm"
         >
-          <Link href="/" className="flex items-center gap-2 mb-8">
+          <Link href="/" className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
               <Image src="/icon.svg" alt="Logo" width={24} height={24} />
             </div>
@@ -108,7 +128,7 @@ export default function RegisterPage() {
           <p className="text-muted-foreground text-sm mb-7">
             Free forever. No credit card required.
           </p>
-
+          {error && <p className="text-sm text-danger">{error}</p>}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-1.5">
               <Label htmlFor="name">Full Name</Label>
@@ -183,7 +203,7 @@ export default function RegisterPage() {
 
             <Button
               type="submit"
-              className="w-full gap-2 cursor-pointer"
+              className="w-full gap-2 cursor-pointer h-10"
               disabled={isSubmitting}
             >
               {isSubmitting ? (
@@ -195,10 +215,54 @@ export default function RegisterPage() {
             </Button>
           </form>
 
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-3 text-muted-foreground">
+                Or continue with social media
+              </span>
+            </div>
+          </div>
+
+          <div className="space-y-3 my-6">
+            {/* GitHub + Facebook + Google*/}
+            <div className="grid grid-cols-3 gap-3">
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full h-11 cursor-pointer justify-center gap-3"
+                // onClick={() => handleSocialLogin("google")}
+              >
+                <FcGoogle className="size-5" />
+                <span className="hidden sm:inline">Google</span>
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                className="h-11 cursor-pointer justify-center gap-2"
+              >
+                <FaGithub className="size-5" />
+                <span className="hidden sm:inline">GitHub</span>
+              </Button>
+
+              <Button
+                type="button"
+                variant="outline"
+                className="h-11 cursor-pointer justify-center gap-2"
+              >
+                <FaFacebook className="size-5 text-[#1877F2]" />
+                <span className="hidden sm:inline">Facebook</span>
+              </Button>
+            </div>
+          </div>
+
           <p className="text-center text-sm text-muted-foreground mt-6">
             Already have an account?{" "}
             <Link
-              href="/auth/login"
+              href="/auth/sign-in"
               className="text-primary font-semibold hover:underline"
             >
               Sign in

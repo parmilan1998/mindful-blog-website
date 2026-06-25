@@ -221,10 +221,10 @@ export function Navbar() {
                     asChild
                     className=" cursor-pointer"
                   >
-                    <Link href="/auth/login">Sign In</Link>
+                    <Link href="/auth/sign-in">Sign In</Link>
                   </Button>
                   <Button size="sm" asChild className=" cursor-pointer">
-                    <Link href="/auth/register">Get Started</Link>
+                    <Link href="/auth/sign-up">Get Started</Link>
                   </Button>
                 </div>
               )}
