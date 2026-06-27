@@ -33,15 +33,22 @@ import { useAuth } from "@/providers/auth-provider";
 import { usePathname, useRouter } from "next/navigation";
 import { ModeToggle } from "./mode-toggle";
 import Image from "next/image";
+import { signOut } from "@/lib/actions/auth/logout.action";
+import { authClient } from "@/lib/client";
 
 export function Navbar() {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { user, isAuthenticated, logout } = useAuth();
-  const pathname = usePathname();
-  const router = useRouter();
+
+  const { data: session } = authClient.useSession();
+
+  const user = session?.user;
+  const isAuthenticated = !!session;
 
   const unreadCount = MOCK_NOTIFICATIONS.filter((n) => !n.isRead).length;
 
@@ -66,7 +73,7 @@ export function Navbar() {
   };
 
   const handleLogout = async () => {
-    await logout();
+    await signOut();
     router.push("/");
   };
 
@@ -144,15 +151,27 @@ export function Navbar() {
                     )}
                   </Button>
 
+                  <Button
+                    variant="ghost"
+                    size="lg"
+                    className="relative text-muted-foreground cursor-pointer"
+                    onClick={() => router.push("/dashboard/posts/new")}
+                  >
+                    <PenSquare className="w-4 h-4" />
+                  </Button>
+
                   {/* User menu */}
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button
                         variant="ghost"
-                        className="gap-2 px-2 h-9 cursor-pointer"
+                        className="gap-2 px-2 h-10 cursor-pointer"
                       >
-                        <Avatar size="sm">
-                          <AvatarImage src={user.avatar} alt={user.name} />
+                        <Avatar className="rounded-full overflow-visible size-md">
+                          <AvatarImage
+                            src={user.image ?? undefined}
+                            alt={user.name}
+                          />
                           <AvatarFallback>
                             {getInitials(user.name)}
                           </AvatarFallback>

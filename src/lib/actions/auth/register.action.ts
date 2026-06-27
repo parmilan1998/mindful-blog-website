@@ -2,15 +2,24 @@
 
 import { auth } from "@/lib/auth";
 
-export const signUp = async (name: string, email: string, password: string) => {
-  const result = await auth.api.signUpEmail({
-    body: {
-      name,
-      email,
-      password,
-      callbackURL: "/dashboard",
-    },
-  });
+export async function signUp(name: string, email: string, password: string) {
+  try {
+    const result = await auth.api.signUpEmail({
+      body: {
+        name,
+        email,
+        password,
+      },
+    });
 
-  return result;
-};
+    return {
+      success: true,
+      data: result,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      error: error?.message || "Unable to create account. Please try again.",
+    };
+  }
+}

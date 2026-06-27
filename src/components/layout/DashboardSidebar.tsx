@@ -1,25 +1,4 @@
-import {
-  Zap,
-  LayoutDashboard,
-  FileText,
-  Bookmark,
-  Bell,
-  User,
-  Settings,
-  MessageSquare,
-  Clock,
-  LogOut,
-  PenSquare,
-  ChevronDown,
-  BarChart3,
-  Users,
-  Image,
-  Mail,
-  Activity,
-  Tag,
-  FolderOpen,
-  Shield,
-} from "lucide-react";
+import { Zap, LogOut, ChevronDown, Shield } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -35,7 +14,6 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarSeparator,
-  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import {
   Collapsible,
@@ -46,66 +24,31 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { SITE } from "@/constants";
 import { getInitials } from "@/lib/utils";
-import { useAuth } from "@/providers/auth-provider";
+import { authClient } from "@/lib/client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { signOut } from "@/lib/actions/auth/logout.action";
+import { ADMIN_MENU } from "@/constants/admin-menu";
+import { USER_MENU } from "@/constants/user-menu";
 
-const ADMIN_MENU = [
-  { label: "Dashboard", href: "/admin", icon: LayoutDashboard, exact: true },
-  { label: "Analytics", href: "/admin/analytics", icon: BarChart3 },
-  {
-    label: "Content",
-    icon: FileText,
-    children: [
-      { label: "All Posts", href: "/admin/posts" },
-      { label: "New Post", href: "/admin/posts/new" },
-      { label: "Categories", href: "/admin/categories", icon: FolderOpen },
-      { label: "Tags", href: "/admin/tags", icon: Tag },
-    ],
-  },
-  {
-    label: "Comments",
-    href: "/admin/comments",
-    icon: MessageSquare,
-    badge: "4",
-  },
-  { label: "Media Library", href: "/admin/media", icon: Image },
-  { label: "Users", href: "/admin/users", icon: Users },
-  { label: "Newsletter", href: "/admin/newsletter", icon: Mail },
-  { label: "Activity Logs", href: "/admin/activity", icon: Activity },
-  { label: "Settings", href: "/admin/settings", icon: Settings },
-];
-
-const USER_MENU = [
-  { label: "Overview", href: "/dashboard", icon: LayoutDashboard, exact: true },
-  { label: "My Posts", href: "/dashboard/posts", icon: FileText },
-  { label: "Write Post", href: "/dashboard/posts/new", icon: PenSquare },
-  { label: "Bookmarks", href: "/dashboard/bookmarks", icon: Bookmark },
-  { label: "Comments", href: "/dashboard/comments", icon: MessageSquare },
-  {
-    label: "Notifications",
-    href: "/dashboard/notifications",
-    icon: Bell,
-    badge: "4",
-  },
-  { label: "Reading History", href: "/dashboard/history", icon: Clock },
-  { label: "Profile", href: "/dashboard/profile", icon: User },
-  { label: "Settings", href: "/dashboard/settings", icon: Settings },
-];
-
-interface DashboardSidebarProps {
-  variant?: "admin" | "user";
-}
-
-export function DashboardSidebar({ variant = "user" }: DashboardSidebarProps) {
-  const { user, logout } = useAuth();
+export function DashboardSidebar() {
   const pathname = usePathname();
+  const router = useRouter();
 
-  const menu = variant === "admin" ? ADMIN_MENU : USER_MENU;
+  const { data: session } = authClient.useSession();
+
+  const sessionUser = session?.user;
+  const isAdmin = sessionUser?.role === "ADMIN";
+  const menu = isAdmin ? ADMIN_MENU : USER_MENU;
 
   const isActive = (href: string, exact = false) => {
     if (exact) return pathname === href;
     return pathname === href || pathname.startsWith(href + "/");
+  };
+
+  const handleLogout = async () => {
+    await signOut();
+    router.push("/auth/sign-in");
   };
 
   return (
@@ -121,14 +64,13 @@ export function DashboardSidebar({ variant = "user" }: DashboardSidebarProps) {
               <Zap className="w-3.5 h-3.5 text-primary-foreground" />
             </div>
             <span className="font-bold text-sm">{SITE.name}</span>
-            {variant === "admin" && (
+            {isAdmin && (
               <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
                 <Shield className="w-2.5 h-2.5 mr-0.5" />
                 Admin
               </Badge>
             )}
           </Link>
-          {/* <SidebarTrigger className="ml-auto" /> */}
         </div>
       </SidebarHeader>
 
@@ -223,20 +165,23 @@ export function DashboardSidebar({ variant = "user" }: DashboardSidebarProps) {
             <SidebarMenuButton
               size="lg"
               className="cursor-pointer"
-              tooltip={user?.name ?? "User"}
+              tooltip={sessionUser?.name ?? "User"}
             >
               <Avatar size="sm">
-                <AvatarImage src={user?.avatar} alt={user?.name} />
+                <AvatarImage
+                  src={sessionUser?.image ?? undefined}
+                  alt={sessionUser?.name}
+                />
                 <AvatarFallback>
-                  {user ? getInitials(user.name) : "U"}
+                  {sessionUser ? getInitials(sessionUser.name) : "U"}
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col items-start text-left">
                 <span className="text-sm font-semibold truncate max-w-32">
-                  {user?.name}
+                  {sessionUser?.name}
                 </span>
                 <span className="text-xs text-muted-foreground capitalize">
-                  {user?.role}
+                  {sessionUser?.role?.toLowerCase() ?? "user"}
                 </span>
               </div>
             </SidebarMenuButton>
@@ -244,8 +189,8 @@ export function DashboardSidebar({ variant = "user" }: DashboardSidebarProps) {
           <SidebarMenuItem>
             <SidebarMenuButton
               tooltip="Sign Out"
-              onClick={logout}
-              className="text-muted-foreground hover:text-danger"
+              onClick={handleLogout}
+              className="text-muted-foreground hover:text-danger cursor-pointer"
             >
               <LogOut />
               <span>Sign Out</span>

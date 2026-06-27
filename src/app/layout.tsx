@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AppProviders } from "@/providers";
+import { Suspense } from "react";
+import { TopProgressBar } from "@/components/ui/page-loader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -131,6 +133,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-screen bg-background font-sans antialiased">
+        <Suspense fallback={null}>
+          <TopProgressBar />
+        </Suspense>
         <AppProviders>{children}</AppProviders>
       </body>
     </html>

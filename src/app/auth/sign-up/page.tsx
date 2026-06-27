@@ -57,19 +57,31 @@ export default function RegisterPage() {
   });
 
   const onSubmit = async (data: FormData) => {
+    setError("");
+
     try {
       const result = await signUp(data.name, data.email, data.password);
 
-      if (!result) {
-        setError("Registration failed");
+      console.log(result);
+
+      if (result?.error) {
+        setError(result.error);
+        toast.error(result.error);
         return;
       }
 
-      console.log({ result });
-
       toast.success("Account created successfully!");
-    } catch (err) {
+
+      // Redirect if email verification is disabled
+      router.push("/auth/sign-in");
+
+      // OR if email verification is enabled
+      // router.push("/auth/verify-email");
+    } catch (error) {
+      console.error(error);
+
       setError("Something went wrong. Please try again.");
+      toast.error("Something went wrong.");
     }
   };
 

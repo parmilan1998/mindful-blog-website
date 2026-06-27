@@ -1,11 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Zap, LogIn, Loader2 } from "lucide-react";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub, FaFacebook } from "react-icons/fa";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,12 +19,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import { SITE } from "@/constants";
-import { useAuth } from "@/providers/auth-provider";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import Image from "next/image";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub, FaFacebook } from "react-icons/fa";
+import { signIn } from "@/lib/actions/auth/login.action";
+import { authClient } from "@/lib/client";
+import { PageLoader } from "@/components/ui/page-loader";
 
 const schema = z.object({
   email: z.string().email("Invalid email address"),
@@ -29,10 +32,10 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function LoginPage() {
-  const [showPassword, setShowPassword] = useState(false);
-  const { login } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const from = searchParams.get("redirect") || "/dashboard";
 
@@ -52,19 +55,41 @@ export default function LoginPage() {
     },
   });
 
+  const [isNavigating, setIsNavigating] = useState(false);
+
   const onSubmit = async (data: FormData) => {
-    const result = await login(data.email, data.password);
-    if (result.success) {
-      toast.success("Welcome back!");
-      router.replace(from);
-    } else {
-      toast.error(result.message ?? "Invalid credentials");
+    try {
+      const result = await signIn(data.email, data.password);
+
+      if (!result.success) {
+        toast.error(result.message);
+        return;
+      }
+
+      // toast.success("Login successful");
+      setIsNavigating(true);
+
+      const session = await authClient.getSession();
+      const role = session.data?.user?.role;
+
+      if (role === "ADMIN") {
+        router.push("/admin");
+      } else {
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      setIsNavigating(false);
+      toast.error("Something went wrong");
     }
   };
 
   return (
     <div className="min-h-screen flex">
+      {/* Navigating overlay */}
+      {isNavigating && <PageLoader />}
+
       {/* Left: Form */}
+
       <div className="flex-1 flex items-center justify-center p-6">
         <motion.div
           initial={{ opacity: 0, x: -24 }}
@@ -99,7 +124,7 @@ export default function LoginPage() {
                 placeholder="you@example.com"
                 {...register("email")}
                 aria-invalid={!!errors.email}
-                className={errors.email ? "border-danger" : ""}
+                className={errors.email ? "border-danger h-10" : "h-10"}
               />
               {errors.email && (
                 <p className="text-xs text-danger">{errors.email.message}</p>
@@ -123,7 +148,9 @@ export default function LoginPage() {
                   placeholder="••••••••"
                   {...register("password")}
                   aria-invalid={!!errors.password}
-                  className={errors.password ? "border-danger pr-10" : "pr-10"}
+                  className={
+                    errors.password ? "border-danger pr-10 h-10" : "pr-10 h-10"
+                  }
                 />
                 <button
                   type="button"
@@ -159,7 +186,7 @@ export default function LoginPage() {
 
             <Button
               type="submit"
-              className="w-full gap-2 cursor-pointer"
+              className="w-full gap-2 cursor-pointer h-10"
               disabled={isSubmitting}
             >
               {isSubmitting ? (
