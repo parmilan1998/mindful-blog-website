@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Mindful",
-    short_name: "Mindful",
+    name: "BlogMint",
+    short_name: "BlogMint",
     description:
       "Modern Blogging Platform for Programming, AI and Software Engineering",
 

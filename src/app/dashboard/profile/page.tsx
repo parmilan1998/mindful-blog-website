@@ -341,7 +341,7 @@ export default function UserProfilePage() {
                   },
                   {
                     label: "Product updates",
-                    description: "Mindful feature announcements",
+                    description: "BlogMint feature announcements",
                     key: "updates",
                   },
                 ].map(({ label, description, key }) => (

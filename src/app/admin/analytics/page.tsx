@@ -164,7 +164,7 @@ export default function AdminAnalyticsPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="views">
+          <Tabs defaultValue="views" className="flex flex-col">
             <TabsList className="mb-4">
               <TabsTrigger value="views">Views & Visitors</TabsTrigger>
               <TabsTrigger value="engagement">Engagement</TabsTrigger>

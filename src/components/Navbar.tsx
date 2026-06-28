@@ -5,7 +5,6 @@ import {
   Menu,
   X,
   Bell,
-  User,
   LogOut,
   Settings,
   LayoutDashboard,
@@ -29,11 +28,9 @@ import { NAV_LINKS, SITE } from "@/constants";
 import { cn, getInitials } from "@/lib/utils";
 import { MOCK_NOTIFICATIONS } from "@/mock/data";
 import Link from "next/link";
-import { useAuth } from "@/providers/auth-provider";
 import { usePathname, useRouter } from "next/navigation";
 import { ModeToggle } from "./mode-toggle";
 import Image from "next/image";
-import { signOut } from "@/lib/actions/auth/logout.action";
 import { authClient } from "@/lib/client";
 
 export function Navbar() {
@@ -49,6 +46,17 @@ export function Navbar() {
 
   const user = session?.user;
   const isAuthenticated = !!session;
+
+  const isAdmin = user?.role === "ADMIN";
+
+  const routes = {
+    dashboard: isAdmin ? "/admin" : "/dashboard",
+    settings: isAdmin ? "/admin/settings" : "/dashboard/settings",
+    newPost: isAdmin ? "/admin/posts/new" : "/dashboard/posts/new",
+    notifications: isAdmin
+      ? "/admin/notifications"
+      : "/dashboard/notifications",
+  };
 
   const unreadCount = MOCK_NOTIFICATIONS.filter((n) => !n.isRead).length;
 
@@ -73,7 +81,7 @@ export function Navbar() {
   };
 
   const handleLogout = async () => {
-    await signOut();
+    await authClient.signOut();
     router.push("/");
   };
 
@@ -141,7 +149,7 @@ export function Navbar() {
                     variant="ghost"
                     size="icon"
                     className="relative text-muted-foreground cursor-pointer"
-                    onClick={() => router.push("/dashboard/notifications")}
+                    onClick={() => router.push(routes.notifications)}
                   >
                     <Bell className="w-4 h-4" />
                     {unreadCount > 0 && (
@@ -155,7 +163,7 @@ export function Navbar() {
                     variant="ghost"
                     size="lg"
                     className="relative text-muted-foreground cursor-pointer"
-                    onClick={() => router.push("/dashboard/posts/new")}
+                    onClick={() => router.push(routes.newPost)}
                   >
                     <PenSquare className="w-4 h-4" />
                   </Button>
@@ -193,34 +201,26 @@ export function Navbar() {
                       </DropdownMenuLabel>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
-                        onClick={() => router.push("/dashboard")}
+                        onClick={() => router.push(routes.dashboard)}
+                        className="cursor-pointer"
                       >
                         <LayoutDashboard className="w-4 h-4" />
                         Dashboard
                       </DropdownMenuItem>
                       <DropdownMenuItem
-                        onClick={() => router.push("/dashboard/posts/new")}
+                        onClick={() => router.push(routes.newPost)}
+                        className="cursor-pointer"
                       >
                         <PenSquare className="w-4 h-4" />
                         Write a Post
                       </DropdownMenuItem>
                       <DropdownMenuItem
-                        onClick={() => router.push("/dashboard/profile")}
+                        onClick={() => router.push(routes.settings)}
+                        className="cursor-pointer"
                       >
-                        <User className="w-4 h-4" />
-                        Profile
+                        <Settings className="w-4 h-4" />
+                        Settings
                       </DropdownMenuItem>
-                      {user.role === "admin" && (
-                        <>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem
-                            onClick={() => router.push("/admin")}
-                          >
-                            <Settings className="w-4 h-4" />
-                            Admin Panel
-                          </DropdownMenuItem>
-                        </>
-                      )}
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
                         className="text-danger focus:text-danger"

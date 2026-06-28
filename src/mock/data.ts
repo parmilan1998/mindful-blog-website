@@ -1635,8 +1635,8 @@ export const MOCK_EMAIL_TEMPLATES: EmailTemplate[] = [
   {
     id: "et1",
     name: "Welcome Email",
-    subject: "Welcome to Mindful! 🎉",
-    body: "<h1>Welcome!</h1><p>Thanks for joining Mindful...</p>",
+    subject: "Welcome to BlogMint! 🎉",
+    body: "<h1>Welcome!</h1><p>Thanks for joining BlogMint...</p>",
     type: "welcome",
     createdAt: "2022-01-01T00:00:00Z",
     updatedAt: "2025-01-01T00:00:00Z",

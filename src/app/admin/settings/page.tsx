@@ -53,7 +53,7 @@ export default function AdminSettingsPage() {
     // @ts-ignore
     resolver: zodResolver(generalSchema),
     defaultValues: {
-      siteName: "Mindful",
+      siteName: "BlogMint",
       tagline: "Ideas that move developers forward",
       description:
         "The modern blog for developers — React, TypeScript, AI, DevOps, and beyond.",
@@ -224,7 +224,7 @@ export default function AdminSettingsPage() {
             <CardContent className="space-y-5">
               <div className="space-y-1.5">
                 <Label>Default Meta Title</Label>
-                <Input defaultValue="Mindful — Ideas for Developers" />
+                <Input defaultValue="BlogMint — Ideas for Developers" />
               </div>
               <div className="space-y-1.5">
                 <Label>Default Meta Description</Label>

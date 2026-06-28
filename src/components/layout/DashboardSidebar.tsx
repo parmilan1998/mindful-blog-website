@@ -30,6 +30,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "@/lib/actions/auth/logout.action";
 import { ADMIN_MENU } from "@/constants/admin-menu";
 import { USER_MENU } from "@/constants/user-menu";
+import Image from "next/image";
 
 export function DashboardSidebar() {
   const pathname = usePathname();
@@ -61,7 +62,7 @@ export function DashboardSidebar() {
             className="flex items-center gap-2 group-data-[collapsible=icon]:hidden"
           >
             <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
-              <Zap className="w-3.5 h-3.5 text-primary-foreground" />
+              <Image src="/icon.svg" alt="Logo" width={24} height={24} />
             </div>
             <span className="font-bold text-sm">{SITE.name}</span>
             {isAdmin && (
