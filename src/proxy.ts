@@ -8,17 +8,20 @@ export async function proxy(req: Request) {
 
   const pathname = new URL(req.url).pathname;
 
+  const isAdminRoute = pathname.startsWith("/admin");
+  const isDashboardRoute = pathname.startsWith("/dashboard");
+
   if (!session) {
     return NextResponse.redirect(new URL("/auth/sign-in", req.url));
   }
 
-  const role = session.user.role;
+  const role = session?.user?.role;
 
-  if (pathname.startsWith("/admin") && role !== "ADMIN") {
+  if (isAdminRoute && role !== "ADMIN") {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
-  if (pathname.startsWith("/dashboard") && role !== "USER") {
+  if (isDashboardRoute && role !== "USER") {
     return NextResponse.redirect(new URL("/admin", req.url));
   }
 

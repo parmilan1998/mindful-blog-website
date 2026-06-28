@@ -38,14 +38,14 @@ const TESTIMONIALS = [
     role: "Senior Frontend Engineer",
     avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=sofia",
     content:
-      "Mindful has become my go-to resource for staying current with React and TypeScript. The quality of articles is unmatched.",
+      "BlogMint has become my go-to resource for staying current with React and TypeScript. The quality of articles is unmatched.",
   },
   {
     name: "James Park",
     role: "Fullstack Developer",
     avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=james",
     content:
-      "I've learned more from Mindful in 3 months than from years of tutorials. The depth and clarity of each post is incredible.",
+      "I've learned more from BlogMint in 3 months than from years of tutorials. The depth and clarity of each post is incredible.",
   },
   {
     name: "Emma Johnson",
@@ -58,7 +58,7 @@ const TESTIMONIALS = [
 
 const FAQ_ITEMS = [
   {
-    q: "Is Mindful free?",
+    q: "Is BlogMint free?",
     a: "Yes! All articles are completely free to read. We also offer a premium newsletter with exclusive content.",
   },
   {
@@ -106,7 +106,7 @@ export default function HomePage() {
       return;
     }
     setSubscribed(true);
-    toast.success("Welcome to Mindful! Check your inbox 🎉");
+    toast.success("Welcome to BlogMint! Check your inbox 🎉");
     setEmail("");
   };
 
@@ -512,7 +512,7 @@ export default function HomePage() {
               Frequently Asked Questions
             </h2>
             <p className="text-muted-foreground text-sm">
-              Everything you need to know about Mindful
+              Everything you need to know about BlogMint
             </p>
           </div>
           <Accordion type="single" collapsible className="space-y-2">

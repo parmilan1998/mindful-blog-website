@@ -21,17 +21,17 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: "Mindful | Modern Blogging Platform",
-    template: "%s | Mindful",
+    default: "BlogMint | Modern Blogging Platform",
+    template: "%s | BlogMint",
   },
 
   description:
-    "Mindful is a modern blogging platform for technology, programming, AI, software engineering, web development, and productivity.",
+    "BlogMint is a modern blogging platform for technology, programming, AI, software engineering, web development, and productivity.",
 
-  applicationName: "Mindful",
+  applicationName: "BlogMint",
 
   keywords: [
-    "Mindful",
+    "BlogMint",
     "Blog",
     "Programming",
     "Software Engineering",
@@ -53,14 +53,14 @@ export const metadata: Metadata = {
 
   authors: [
     {
-      name: "Mindful Team",
+      name: "BlogMint Team",
       url: siteUrl,
     },
   ],
 
-  creator: "Mindful",
+  creator: "BlogMint",
 
-  publisher: "Mindful",
+  publisher: "BlogMint",
 
   category: "Technology",
 
@@ -82,13 +82,13 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Mindful | Modern Blogging Platform",
+    title: "BlogMint | Modern Blogging Platform",
     description:
       "Explore high-quality articles about programming, AI, software engineering, and modern web development.",
 
     url: siteUrl,
 
-    siteName: "Mindful",
+    siteName: "BlogMint",
 
     locale: "en_US",
 
@@ -99,14 +99,14 @@ export const metadata: Metadata = {
         url: "/icon.svg",
         width: 1200,
         height: 630,
-        alt: "Mindful Blog",
+        alt: "BlogMint Blog",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Mindful",
+    title: "BlogMint",
     description:
       "Modern programming tutorials, AI articles, and software engineering blogs.",
 

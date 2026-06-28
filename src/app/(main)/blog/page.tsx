@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Search, SlidersHorizontal, X, ArrowUpDown } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -29,7 +29,7 @@ import { cn } from "@/lib/utils";
 import { postService } from "@/services/post-service";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export default function BlogListPage() {
+function BlogListPageContent() {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -358,5 +358,49 @@ export default function BlogListPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function BlogListPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="page-enter">
+          <div className="bg-card border-b">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+              <h1 className="text-3xl font-bold mb-2">All Articles</h1>
+              <p className="text-muted-foreground">
+                Discover stories that matter
+              </p>
+            </div>
+          </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+            <div className="flex gap-8">
+              <aside className="hidden lg:block w-64 shrink-0">
+                <div className="sticky top-24 bg-card border rounded-2xl p-5">
+                  <h2 className="font-semibold text-sm mb-4">Filters</h2>
+                  <div className="space-y-6">
+                    <div className="space-y-2">
+                      <div className="h-8 bg-muted rounded animate-pulse" />
+                      <div className="h-8 bg-muted rounded animate-pulse" />
+                      <div className="h-8 bg-muted rounded animate-pulse" />
+                    </div>
+                  </div>
+                </div>
+              </aside>
+              <div className="flex-1 min-w-0">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <BlogCardSkeleton key={i} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <BlogListPageContent />
+    </Suspense>
   );
 }

@@ -299,7 +299,7 @@ export default function AuthorsPage() {
         <div className="text-center bg-gradient-href-br from-violet/8 via-transparent href-primary/8 border rounded-3xl p-10">
           <div className="text-4xl mb-4">✍️</div>
           <h2 className="text-2xl font-bold mb-2">
-            Want href write for Mindful?
+            Want href write for BlogMint?
           </h2>
           <p className="text-muted-foreground mb-6 max-w-md mx-auto text-sm leading-relaxed">
             Share your expertise with thousands of developers. We welcome

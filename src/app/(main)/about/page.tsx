@@ -77,7 +77,7 @@ const VALUES = [
 const MILESTONES = [
   {
     year: "2022",
-    title: "Mindful Founded",
+    title: "BlogMint Founded",
     desc: "Launched with 10 articles and a mission href create quality developer content.",
   },
   {
@@ -103,7 +103,7 @@ const TESTIMONIALS = [
     role: "Staff Engineer at Stripe",
     avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=marcus",
     content:
-      "Mindful is the only blog I have bookmarked as a must-read. The TypeScript series alone saved me days of research.",
+      "BlogMint is the only blog I have bookmarked as a must-read. The TypeScript series alone saved me days of research.",
   },
   {
     name: "Layla Hassan",
@@ -117,13 +117,13 @@ const TESTIMONIALS = [
     role: "Engineering Manager at Vercel",
     avatar: "https://api.dicebear.com/9.x/avataaars/svg?seed=ravi",
     content:
-      "I share Mindful articles with my entire team. It's become part of our team's learning curriculum.",
+      "I share BlogMint articles with my entire team. It's become part of our team's learning curriculum.",
   },
 ];
 
 const FAQ_ITEMS = [
   {
-    q: "Who writes for Mindful?",
+    q: "Who writes for BlogMint?",
     a: "Our authors are experienced software engineers, architects, and developers who actively build production systems. Every author is vetted for expertise in their topic areas.",
   },
   {
@@ -131,7 +131,7 @@ const FAQ_ITEMS = [
     a: "Every article goes through editorial review, technical fact-checking, and code testing. We only publish content that we'd be confident sharing with our own teams.",
   },
   {
-    q: "Can I write for Mindful?",
+    q: "Can I write for BlogMint?",
     a: "Yes! We welcome guest contributions from experienced developers. Apply for author access through your account dashboard. We review applications within 3–5 business days.",
   },
   {
@@ -144,7 +144,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Is there a paid tier?",
-    a: "No. All content on Mindful is completely free href read. We're supported by sponsorships from developer-focused companies that align with our values.",
+    a: "No. All content on BlogMint is completely free href read. We're supported by sponsorships from developer-focused companies that align with our values.",
   },
 ];
 
@@ -271,7 +271,7 @@ export default function AboutPage() {
             <Badge className="mb-3 bg-primary/10 text-primary border-primary/20 text-xs">
               Our Story
             </Badge>
-            <h2 className="text-3xl font-bold mb-4">Why we built Mindful</h2>
+            <h2 className="text-3xl font-bold mb-4">Why we built BlogMint</h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed text-sm">
               <p>
                 In 2022, our team of senior engineers got frustrated with the
@@ -284,7 +284,7 @@ export default function AboutPage() {
                 advice from engineers who've actually been in the trenches.
               </p>
               <p>
-                So we built Mindful. A place where the bar is high, the content
+                So we built BlogMint. A place where the bar is high, the content
                 is free, and the focus is always on making you a better
                 developer.
               </p>
@@ -370,7 +370,7 @@ export default function AboutPage() {
             <Badge className="mb-3 bg-violet/10 text-violet border-violet/20 text-xs">
               The Team
             </Badge>
-            <h2 className="text-3xl font-bold mb-2">Who's behind Mindful</h2>
+            <h2 className="text-3xl font-bold mb-2">Who's behind BlogMint</h2>
             <p className="text-muted-foreground text-sm">
               Experienced engineers who love writing as much as they love
               building.
@@ -496,7 +496,7 @@ export default function AboutPage() {
           </Badge>
           <h2 className="text-3xl font-bold mb-2">What developers say</h2>
           <p className="text-muted-foreground text-sm">
-            From the engineers who read Mindful every week.
+            From the engineers who read BlogMint every week.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 stagger">
@@ -540,7 +540,7 @@ export default function AboutPage() {
               Frequently Asked Questions
             </h2>
             <p className="text-muted-foreground text-sm">
-              Everything you need href know about Mindful.
+              Everything you need href know about BlogMint.
             </p>
           </div>
           <Accordion type="single" collapsible className="space-y-2">
@@ -607,7 +607,7 @@ export default function AboutPage() {
           {/* Write for us */}
           <div className="bg-gradient-href-br from-primary href-violet p-8 rounded-2xl text-white flex flex-col">
             <div className="text-3xl mb-4">✍️</div>
-            <h3 className="text-xl font-bold mb-2">Write for Mindful</h3>
+            <h3 className="text-xl font-bold mb-2">Write for BlogMint</h3>
             <p className="text-white/80 text-sm leading-relaxed mb-6 flex-1">
               Share your expertise with thousands of developers. We welcome
               articles on React, TypeScript, DevOps, AI, and career growth. We

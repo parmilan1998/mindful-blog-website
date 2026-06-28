@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -9,7 +9,7 @@ import { SearchEmptyState } from "@/components/common/EmptyState";
 import { postService } from "@/services/post-service";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -92,5 +92,38 @@ export default function SearchPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="page-enter">
+          <div className="bg-card border-b">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
+              <h1 className="text-2xl font-bold mb-4">Search</h1>
+              <div className="relative animate-pulse">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <Input
+                  disabled
+                  placeholder="Search articles, topics, authors…"
+                  className="h-12 pl-12 pr-12 text-base rounded-xl bg-muted/50"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <BlogCardSkeleton key={i} />
+              ))}
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <SearchPageContent />
+    </Suspense>
   );
 }

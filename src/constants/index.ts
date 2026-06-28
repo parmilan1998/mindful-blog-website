@@ -1,5 +1,5 @@
 export const SITE = {
-  name: "Mindful",
+  name: "BlogMint",
   tagline: "Ideas that move developers forward",
   description:
     "The modern blog for developers — React, TypeScript, AI, DevOps, and beyond.",

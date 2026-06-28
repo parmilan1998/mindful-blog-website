@@ -68,7 +68,7 @@ export function PageLoader({ message = "Loading…" }: { message?: string }) {
       {/* Glowing logo mark */}
       <div className="relative mb-8">
         <div className="w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-          <Zap className="w-7 h-7 text-primary animate-pulse" />
+          <Zap className="w-8 h-8 text-primary animate-pulse" />
         </div>
         {/* Ping ring */}
         <span className="absolute inset-0 rounded-2xl border border-primary/40 animate-ping" />
