@@ -1,0 +1,63 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 128 128"
+    role="img"
+    aria-labelledby="title"
+>
+    <title>Mindful</title>
+
+    <defs>
+        <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2563EB" />
+            <stop offset="100%" stop-color="#7C3AED" />
+        </linearGradient>
+
+        <linearGradient id="paper" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF" />
+            <stop offset="100%" stop-color="#F3F4F6" />
+        </linearGradient>
+    </defs>
+
+    <!-- Background -->
+    <rect
+        x="8"
+        y="8"
+        width="112"
+        height="112"
+        rx="28"
+        fill="url(#bg)"
+    />
+
+    <!-- Document -->
+    <path
+        d="M42 28h28l16 16v56H42V28z"
+        fill="url(#paper)"
+    />
+
+    <!-- Fold -->
+    <path
+        d="M70 28v16h16"
+        fill="#D1D5DB"
+    />
+
+    <!-- Text -->
+    <rect x="50" y="54" width="28" height="4" rx="2" fill="#2563EB" />
+    <rect x="50" y="66" width="24" height="4" rx="2" fill="#60A5FA" />
+    <rect x="50" y="78" width="18" height="4" rx="2" fill="#93C5FD" />
+
+    <!-- Pen -->
+    <g transform="rotate(-45 82 82)">
+        <rect
+            x="78"
+            y="62"
+            width="8"
+            height="30"
+            rx="3"
+            fill="#F59E0B"
+        />
+        <polygon
+            points="78,62 86,62 82,54"
+            fill="#FBBF24"
+        />
+    </g>
+</svg>
