@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -42,7 +42,23 @@ export default function LoginPage() {
           </p>
 
           {/* Sign In Form */}
-          <LoginForm setIsNavigating={setIsNavigating} />
+          <Suspense
+            fallback={
+              <div className="space-y-4 animate-pulse">
+                <div className="space-y-2">
+                  <div className="h-4 bg-muted rounded w-1/4" />
+                  <div className="h-10 bg-muted rounded w-full" />
+                </div>
+                <div className="space-y-2">
+                  <div className="h-4 bg-muted rounded w-1/4" />
+                  <div className="h-10 bg-muted rounded w-full" />
+                </div>
+                <div className="h-10 bg-muted rounded w-full" />
+              </div>
+            }
+          >
+            <LoginForm setIsNavigating={setIsNavigating} />
+          </Suspense>
 
           {/* Separator */}
           <div className="relative my-6">
