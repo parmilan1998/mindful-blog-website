@@ -22,7 +22,7 @@ import { BlogCard, FeaturedCard, BlogCardSkeleton } from "@/components/cards";
 import { getInitials } from "@/lib/utils";
 import { MOCK_CATEGORIES, MOCK_TAGS, MOCK_USERS } from "@/mock/data";
 import { toast } from "sonner";
-import { postService } from "@/services/post-service";
+import { postService } from "@/services/client/post-service";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {

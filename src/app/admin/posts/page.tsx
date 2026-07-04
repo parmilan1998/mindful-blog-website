@@ -70,7 +70,7 @@ import { STATUS_COLORS } from "@/constants";
 import type { Post } from "@/types";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { postService } from "@/services/post-service";
+import { postService } from "@/services/client/post-service";
 import Link from "next/link";
 
 export default function AdminPostsPage() {

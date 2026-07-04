@@ -19,7 +19,7 @@ import { EmptyState } from "@/components/common/EmptyState";
 import { formatRelativeDate, getInitials } from "@/lib/utils";
 import { STATUS_COLORS } from "@/constants";
 import { toast } from "sonner";
-import { commentService } from "@/services/comment-service";
+import { commentService } from "@/services/client/comment-service";
 
 export default function AdminCommentsPage() {
   const queryClient = useQueryClient();

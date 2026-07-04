@@ -6,7 +6,7 @@ import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { BlogCard, BlogCardSkeleton } from "@/components/cards";
 import { SearchEmptyState } from "@/components/common/EmptyState";
-import { postService } from "@/services/post-service";
+import { postService } from "@/services/client/post-service";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 function SearchPageContent() {

@@ -26,7 +26,7 @@ import { Pagination } from "@/components/common/Pagination";
 import { EmptyState } from "@/components/common/EmptyState";
 import { MOCK_CATEGORIES, MOCK_TAGS } from "@/mock/data";
 import { cn } from "@/lib/utils";
-import { postService } from "@/services/post-service";
+import { postService } from "@/services/client/post-service";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 function BlogListPageContent() {

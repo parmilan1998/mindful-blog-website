@@ -6,7 +6,7 @@ import { BlogCard, BlogCardSkeleton } from "@/components/cards";
 import { EmptyState } from "@/components/common/EmptyState";
 import { MOCK_TAGS } from "@/mock/data";
 import { useParams } from "next/navigation";
-import { postService } from "@/services/post-service";
+import { postService } from "@/services/client/post-service";
 
 export default function TagPage() {
   const { slug } = useParams<{ slug: string }>();

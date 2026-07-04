@@ -27,7 +27,7 @@ import {
 } from "@/lib/utils";
 import { toast } from "sonner";
 import { useParams, useRouter } from "next/navigation";
-import { postService } from "@/services/post-service";
+import { postService } from "@/services/client/post-service";
 import Link from "next/link";
 
 export default function BlogDetailPage() {

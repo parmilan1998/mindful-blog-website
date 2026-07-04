@@ -44,7 +44,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MOCK_CATEGORIES, MOCK_TAGS } from "@/mock/data";
 import { slugify } from "@/lib/utils";
 import { toast } from "sonner";
-import { postService } from "@/services/post-service";
+import { postService } from "@/services/client/post-service";
 import { useParams, useRouter } from "next/navigation";
 
 const schema = z.object({

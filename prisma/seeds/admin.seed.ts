@@ -1,9 +1,12 @@
 import "dotenv/config";
+
 import { auth } from "@/lib/auth";
 import { PrismaClient, Role } from "@/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 
 const connectionString = process.env.DATABASE_URL;
+const email = process.env.ADMIN_EMAIL;
+const password = process.env.ADMIN_PASSWORD;
 
 if (!connectionString) {
   throw new Error("❌ DATABASE_URL is missing in .env");
@@ -16,9 +19,6 @@ const prisma = new PrismaClient({
 });
 
 export const runAdminSeed = async () => {
-  const email = process.env.ADMIN_EMAIL;
-  const password = process.env.ADMIN_PASSWORD;
-
   if (!email || !password) {
     throw new Error("❌ ADMIN_EMAIL or ADMIN_PASSWORD is missing in .env");
   }

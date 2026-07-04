@@ -64,7 +64,7 @@ import { formatDate, formatNumber, getInitials } from "@/lib/utils";
 import { STATUS_COLORS, ROLE_COLORS } from "@/constants";
 import type { User } from "@/types";
 import { toast } from "sonner";
-import { userService } from "@/services/user-service";
+import { userService } from "@/services/client/user-service";
 
 export default function AdminUsersPage() {
   const queryClient = useQueryClient();

@@ -8,7 +8,7 @@ import React, {
   useCallback,
 } from "react";
 import type { AuthUser } from "@/types";
-import { authService } from "../services/auth-service";
+import { authService } from "../services/client/auth-service";
 
 interface AuthContextValue {
   user: AuthUser | null;

@@ -29,8 +29,8 @@ import { EmptyState } from "@/components/common/EmptyState";
 import { formatNumber, formatDate, getInitials } from "@/lib/utils";
 import { ROLE_COLORS } from "@/constants";
 import { useParams } from "next/navigation";
-import { userService } from "@/services/user-service";
-import { postService } from "@/services/post-service";
+import { userService } from "@/services/client/user-service";
+import { postService } from "@/services/client/post-service";
 import Link from "next/link";
 
 export default function AuthorPage() {

@@ -81,7 +81,7 @@ import { toast } from "sonner";
 import { PageBreadcrumb } from "@/components/common/Breadcrumb";
 import type { PostStatus } from "@/types";
 import { useParams, useRouter } from "next/navigation";
-import { postService } from "@/services/post-service";
+import { postService } from "@/services/client/post-service";
 import Link from "next/link";
 
 const schema = z.object({

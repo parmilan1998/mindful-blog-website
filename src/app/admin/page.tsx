@@ -29,7 +29,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { StatCard } from "@/components/cards";
-import { analyticsService } from "../../services/analytics-service";
+import { analyticsService } from "../../services/client/analytics-service";
 import { formatNumber, formatDate, getInitials } from "@/lib/utils";
 import { MOCK_POSTS, MOCK_USERS, MOCK_TRAFFIC_SOURCES } from "@/mock/data";
 import { STATUS_COLORS, ROLE_COLORS } from "@/constants";

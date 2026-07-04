@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SITE } from "@/constants";
-import { authService } from "@/services/auth-service";
+import { authService } from "@/services/client/auth-service";
 import Link from "next/link";
 
 export default function ForgotPasswordPage() {

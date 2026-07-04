@@ -287,6 +287,26 @@
     var(--background);
 }
 
+.quill-editor {
+  height: 450px; /* fixed editor height */
+}
+
+/* Quill container */
+.quill-editor .ql-container {
+  height: calc(450px - 42px); /* toolbar offset */
+  overflow: hidden;
+  border-radius: 0 0 8px 8px;
+}
+
+/* Scrollable editor area */
+.quill-editor .ql-editor {
+  height: 100%;
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-bottom: 80px; /* better UX for typing */
+}
+
 /* Dashboard bg */
 .dashboard-bg {
   background:

@@ -39,7 +39,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { formatNumber } from "@/lib/utils";
 import { MOCK_TRAFFIC_SOURCES, MOCK_DEVICE_STATS } from "@/mock/data";
-import { analyticsService } from "@/services/analytics-service";
+import { analyticsService } from "@/services/client/analytics-service";
 
 const PIE_COLORS = [
   "var(--chart-1)",

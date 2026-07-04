@@ -30,7 +30,7 @@ import { Switch } from "@/components/ui/switch";
 import { getInitials } from "@/lib/utils";
 import { toast } from "sonner";
 import { useAuth } from "@/providers/auth-provider";
-import { userService } from "@/services/user-service";
+import { userService } from "@/services/client/user-service";
 
 const profileSchema = z.object({
   name: z.string().min(2),
