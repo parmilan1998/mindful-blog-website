@@ -27,10 +27,12 @@ export type AggregatePost = {
 }
 
 export type PostAvgAggregateOutputType = {
+  readingTime: number | null
   viewCount: number | null
 }
 
 export type PostSumAggregateOutputType = {
+  readingTime: number | null
   viewCount: number | null
 }
 
@@ -38,13 +40,21 @@ export type PostMinAggregateOutputType = {
   id: string | null
   title: string | null
   slug: string | null
-  content: string | null
   excerpt: string | null
-  coverImage: string | null
+  content: string | null
+  featuredImageUrl: string | null
+  featuredImageId: string | null
   status: $Enums.PostStatus | null
+  isFeatured: boolean | null
+  isTrending: boolean | null
+  readingTime: number | null
   viewCount: number | null
   publishedAt: Date | null
+  scheduledAt: Date | null
+  seoTitle: string | null
+  seoDescription: string | null
   isDeleted: boolean | null
+  deletedAt: Date | null
   authorId: string | null
   categoryId: string | null
   createdAt: Date | null
@@ -55,13 +65,21 @@ export type PostMaxAggregateOutputType = {
   id: string | null
   title: string | null
   slug: string | null
-  content: string | null
   excerpt: string | null
-  coverImage: string | null
+  content: string | null
+  featuredImageUrl: string | null
+  featuredImageId: string | null
   status: $Enums.PostStatus | null
+  isFeatured: boolean | null
+  isTrending: boolean | null
+  readingTime: number | null
   viewCount: number | null
   publishedAt: Date | null
+  scheduledAt: Date | null
+  seoTitle: string | null
+  seoDescription: string | null
   isDeleted: boolean | null
+  deletedAt: Date | null
   authorId: string | null
   categoryId: string | null
   createdAt: Date | null
@@ -72,13 +90,21 @@ export type PostCountAggregateOutputType = {
   id: number
   title: number
   slug: number
-  content: number
   excerpt: number
-  coverImage: number
+  content: number
+  featuredImageUrl: number
+  featuredImageId: number
   status: number
+  isFeatured: number
+  isTrending: number
+  readingTime: number
   viewCount: number
   publishedAt: number
+  scheduledAt: number
+  seoTitle: number
+  seoDescription: number
   isDeleted: number
+  deletedAt: number
   authorId: number
   categoryId: number
   createdAt: number
@@ -88,10 +114,12 @@ export type PostCountAggregateOutputType = {
 
 
 export type PostAvgAggregateInputType = {
+  readingTime?: true
   viewCount?: true
 }
 
 export type PostSumAggregateInputType = {
+  readingTime?: true
   viewCount?: true
 }
 
@@ -99,13 +127,21 @@ export type PostMinAggregateInputType = {
   id?: true
   title?: true
   slug?: true
-  content?: true
   excerpt?: true
-  coverImage?: true
+  content?: true
+  featuredImageUrl?: true
+  featuredImageId?: true
   status?: true
+  isFeatured?: true
+  isTrending?: true
+  readingTime?: true
   viewCount?: true
   publishedAt?: true
+  scheduledAt?: true
+  seoTitle?: true
+  seoDescription?: true
   isDeleted?: true
+  deletedAt?: true
   authorId?: true
   categoryId?: true
   createdAt?: true
@@ -116,13 +152,21 @@ export type PostMaxAggregateInputType = {
   id?: true
   title?: true
   slug?: true
-  content?: true
   excerpt?: true
-  coverImage?: true
+  content?: true
+  featuredImageUrl?: true
+  featuredImageId?: true
   status?: true
+  isFeatured?: true
+  isTrending?: true
+  readingTime?: true
   viewCount?: true
   publishedAt?: true
+  scheduledAt?: true
+  seoTitle?: true
+  seoDescription?: true
   isDeleted?: true
+  deletedAt?: true
   authorId?: true
   categoryId?: true
   createdAt?: true
@@ -133,13 +177,21 @@ export type PostCountAggregateInputType = {
   id?: true
   title?: true
   slug?: true
-  content?: true
   excerpt?: true
-  coverImage?: true
+  content?: true
+  featuredImageUrl?: true
+  featuredImageId?: true
   status?: true
+  isFeatured?: true
+  isTrending?: true
+  readingTime?: true
   viewCount?: true
   publishedAt?: true
+  scheduledAt?: true
+  seoTitle?: true
+  seoDescription?: true
   isDeleted?: true
+  deletedAt?: true
   authorId?: true
   categoryId?: true
   createdAt?: true
@@ -237,13 +289,21 @@ export type PostGroupByOutputType = {
   id: string
   title: string
   slug: string
-  content: string
   excerpt: string | null
-  coverImage: string | null
+  content: string
+  featuredImageUrl: string | null
+  featuredImageId: string | null
   status: $Enums.PostStatus
+  isFeatured: boolean
+  isTrending: boolean
+  readingTime: number
   viewCount: number
   publishedAt: Date | null
+  scheduledAt: Date | null
+  seoTitle: string | null
+  seoDescription: string | null
   isDeleted: boolean
+  deletedAt: Date | null
   authorId: string
   categoryId: string | null
   createdAt: Date
@@ -277,38 +337,56 @@ export type PostWhereInput = {
   id?: Prisma.StringFilter<"Post"> | string
   title?: Prisma.StringFilter<"Post"> | string
   slug?: Prisma.StringFilter<"Post"> | string
-  content?: Prisma.StringFilter<"Post"> | string
   excerpt?: Prisma.StringNullableFilter<"Post"> | string | null
-  coverImage?: Prisma.StringNullableFilter<"Post"> | string | null
+  content?: Prisma.StringFilter<"Post"> | string
+  featuredImageUrl?: Prisma.StringNullableFilter<"Post"> | string | null
+  featuredImageId?: Prisma.StringNullableFilter<"Post"> | string | null
   status?: Prisma.EnumPostStatusFilter<"Post"> | $Enums.PostStatus
+  isFeatured?: Prisma.BoolFilter<"Post"> | boolean
+  isTrending?: Prisma.BoolFilter<"Post"> | boolean
+  readingTime?: Prisma.IntFilter<"Post"> | number
   viewCount?: Prisma.IntFilter<"Post"> | number
   publishedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
+  scheduledAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
+  seoTitle?: Prisma.StringNullableFilter<"Post"> | string | null
+  seoDescription?: Prisma.StringNullableFilter<"Post"> | string | null
   isDeleted?: Prisma.BoolFilter<"Post"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
   authorId?: Prisma.StringFilter<"Post"> | string
   categoryId?: Prisma.StringNullableFilter<"Post"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   category?: Prisma.XOR<Prisma.CategoryNullableScalarRelationFilter, Prisma.CategoryWhereInput> | null
+  tags?: Prisma.PostTagListRelationFilter
 }
 
 export type PostOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   slug?: Prisma.SortOrder
-  content?: Prisma.SortOrder
   excerpt?: Prisma.SortOrderInput | Prisma.SortOrder
-  coverImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  content?: Prisma.SortOrder
+  featuredImageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  featuredImageId?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  isFeatured?: Prisma.SortOrder
+  isTrending?: Prisma.SortOrder
+  readingTime?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  scheduledAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   authorId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   author?: Prisma.UserOrderByWithRelationInput
   category?: Prisma.CategoryOrderByWithRelationInput
+  tags?: Prisma.PostTagOrderByRelationAggregateInput
 }
 
 export type PostWhereUniqueInput = Prisma.AtLeast<{
@@ -318,32 +396,49 @@ export type PostWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.PostWhereInput[]
   NOT?: Prisma.PostWhereInput | Prisma.PostWhereInput[]
   title?: Prisma.StringFilter<"Post"> | string
-  content?: Prisma.StringFilter<"Post"> | string
   excerpt?: Prisma.StringNullableFilter<"Post"> | string | null
-  coverImage?: Prisma.StringNullableFilter<"Post"> | string | null
+  content?: Prisma.StringFilter<"Post"> | string
+  featuredImageUrl?: Prisma.StringNullableFilter<"Post"> | string | null
+  featuredImageId?: Prisma.StringNullableFilter<"Post"> | string | null
   status?: Prisma.EnumPostStatusFilter<"Post"> | $Enums.PostStatus
+  isFeatured?: Prisma.BoolFilter<"Post"> | boolean
+  isTrending?: Prisma.BoolFilter<"Post"> | boolean
+  readingTime?: Prisma.IntFilter<"Post"> | number
   viewCount?: Prisma.IntFilter<"Post"> | number
   publishedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
+  scheduledAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
+  seoTitle?: Prisma.StringNullableFilter<"Post"> | string | null
+  seoDescription?: Prisma.StringNullableFilter<"Post"> | string | null
   isDeleted?: Prisma.BoolFilter<"Post"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
   authorId?: Prisma.StringFilter<"Post"> | string
   categoryId?: Prisma.StringNullableFilter<"Post"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   category?: Prisma.XOR<Prisma.CategoryNullableScalarRelationFilter, Prisma.CategoryWhereInput> | null
+  tags?: Prisma.PostTagListRelationFilter
 }, "id" | "slug">
 
 export type PostOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   slug?: Prisma.SortOrder
-  content?: Prisma.SortOrder
   excerpt?: Prisma.SortOrderInput | Prisma.SortOrder
-  coverImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  content?: Prisma.SortOrder
+  featuredImageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  featuredImageId?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  isFeatured?: Prisma.SortOrder
+  isTrending?: Prisma.SortOrder
+  readingTime?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  scheduledAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  seoDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   authorId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -362,13 +457,21 @@ export type PostScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Post"> | string
   title?: Prisma.StringWithAggregatesFilter<"Post"> | string
   slug?: Prisma.StringWithAggregatesFilter<"Post"> | string
-  content?: Prisma.StringWithAggregatesFilter<"Post"> | string
   excerpt?: Prisma.StringNullableWithAggregatesFilter<"Post"> | string | null
-  coverImage?: Prisma.StringNullableWithAggregatesFilter<"Post"> | string | null
+  content?: Prisma.StringWithAggregatesFilter<"Post"> | string
+  featuredImageUrl?: Prisma.StringNullableWithAggregatesFilter<"Post"> | string | null
+  featuredImageId?: Prisma.StringNullableWithAggregatesFilter<"Post"> | string | null
   status?: Prisma.EnumPostStatusWithAggregatesFilter<"Post"> | $Enums.PostStatus
+  isFeatured?: Prisma.BoolWithAggregatesFilter<"Post"> | boolean
+  isTrending?: Prisma.BoolWithAggregatesFilter<"Post"> | boolean
+  readingTime?: Prisma.IntWithAggregatesFilter<"Post"> | number
   viewCount?: Prisma.IntWithAggregatesFilter<"Post"> | number
   publishedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Post"> | Date | string | null
+  scheduledAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Post"> | Date | string | null
+  seoTitle?: Prisma.StringNullableWithAggregatesFilter<"Post"> | string | null
+  seoDescription?: Prisma.StringNullableWithAggregatesFilter<"Post"> | string | null
   isDeleted?: Prisma.BoolWithAggregatesFilter<"Post"> | boolean
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Post"> | Date | string | null
   authorId?: Prisma.StringWithAggregatesFilter<"Post"> | string
   categoryId?: Prisma.StringNullableWithAggregatesFilter<"Post"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Post"> | Date | string
@@ -379,81 +482,125 @@ export type PostCreateInput = {
   id?: string
   title: string
   slug: string
-  content: string
   excerpt?: string | null
-  coverImage?: string | null
+  content: string
+  featuredImageUrl?: string | null
+  featuredImageId?: string | null
   status?: $Enums.PostStatus
+  isFeatured?: boolean
+  isTrending?: boolean
+  readingTime?: number
   viewCount?: number
   publishedAt?: Date | string | null
+  scheduledAt?: Date | string | null
+  seoTitle?: string | null
+  seoDescription?: string | null
   isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutPostsInput
   category?: Prisma.CategoryCreateNestedOneWithoutPostsInput
+  tags?: Prisma.PostTagCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateInput = {
   id?: string
   title: string
   slug: string
-  content: string
   excerpt?: string | null
-  coverImage?: string | null
+  content: string
+  featuredImageUrl?: string | null
+  featuredImageId?: string | null
   status?: $Enums.PostStatus
+  isFeatured?: boolean
+  isTrending?: boolean
+  readingTime?: number
   viewCount?: number
   publishedAt?: Date | string | null
+  scheduledAt?: Date | string | null
+  seoTitle?: string | null
+  seoDescription?: string | null
   isDeleted?: boolean
+  deletedAt?: Date | string | null
   authorId: string
   categoryId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tags?: Prisma.PostTagUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  featuredImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  featuredImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTrending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readingTime?: Prisma.IntFieldUpdateOperationsInput | number
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
   category?: Prisma.CategoryUpdateOneWithoutPostsNestedInput
+  tags?: Prisma.PostTagUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  featuredImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  featuredImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTrending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readingTime?: Prisma.IntFieldUpdateOperationsInput | number
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.PostTagUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostCreateManyInput = {
   id?: string
   title: string
   slug: string
-  content: string
   excerpt?: string | null
-  coverImage?: string | null
+  content: string
+  featuredImageUrl?: string | null
+  featuredImageId?: string | null
   status?: $Enums.PostStatus
+  isFeatured?: boolean
+  isTrending?: boolean
+  readingTime?: number
   viewCount?: number
   publishedAt?: Date | string | null
+  scheduledAt?: Date | string | null
+  seoTitle?: string | null
+  seoDescription?: string | null
   isDeleted?: boolean
+  deletedAt?: Date | string | null
   authorId: string
   categoryId?: string | null
   createdAt?: Date | string
@@ -464,13 +611,21 @@ export type PostUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  featuredImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  featuredImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTrending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readingTime?: Prisma.IntFieldUpdateOperationsInput | number
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -479,13 +634,21 @@ export type PostUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  featuredImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  featuredImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTrending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readingTime?: Prisma.IntFieldUpdateOperationsInput | number
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -506,13 +669,21 @@ export type PostCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   slug?: Prisma.SortOrder
-  content?: Prisma.SortOrder
   excerpt?: Prisma.SortOrder
-  coverImage?: Prisma.SortOrder
+  content?: Prisma.SortOrder
+  featuredImageUrl?: Prisma.SortOrder
+  featuredImageId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isFeatured?: Prisma.SortOrder
+  isTrending?: Prisma.SortOrder
+  readingTime?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
+  scheduledAt?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrder
+  seoDescription?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -520,6 +691,7 @@ export type PostCountOrderByAggregateInput = {
 }
 
 export type PostAvgOrderByAggregateInput = {
+  readingTime?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
 }
 
@@ -527,13 +699,21 @@ export type PostMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   slug?: Prisma.SortOrder
-  content?: Prisma.SortOrder
   excerpt?: Prisma.SortOrder
-  coverImage?: Prisma.SortOrder
+  content?: Prisma.SortOrder
+  featuredImageUrl?: Prisma.SortOrder
+  featuredImageId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isFeatured?: Prisma.SortOrder
+  isTrending?: Prisma.SortOrder
+  readingTime?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
+  scheduledAt?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrder
+  seoDescription?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -544,13 +724,21 @@ export type PostMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   slug?: Prisma.SortOrder
-  content?: Prisma.SortOrder
   excerpt?: Prisma.SortOrder
-  coverImage?: Prisma.SortOrder
+  content?: Prisma.SortOrder
+  featuredImageUrl?: Prisma.SortOrder
+  featuredImageId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isFeatured?: Prisma.SortOrder
+  isTrending?: Prisma.SortOrder
+  readingTime?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
+  scheduledAt?: Prisma.SortOrder
+  seoTitle?: Prisma.SortOrder
+  seoDescription?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   authorId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -558,7 +746,13 @@ export type PostMinOrderByAggregateInput = {
 }
 
 export type PostSumOrderByAggregateInput = {
+  readingTime?: Prisma.SortOrder
   viewCount?: Prisma.SortOrder
+}
+
+export type PostScalarRelationFilter = {
+  is?: Prisma.PostWhereInput
+  isNot?: Prisma.PostWhereInput
 }
 
 export type PostCreateNestedManyWithoutAuthorInput = {
@@ -649,36 +843,68 @@ export type EnumPostStatusFieldUpdateOperationsInput = {
   set?: $Enums.PostStatus
 }
 
+export type PostCreateNestedOneWithoutTagsInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutTagsInput, Prisma.PostUncheckedCreateWithoutTagsInput>
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutTagsInput
+  connect?: Prisma.PostWhereUniqueInput
+}
+
+export type PostUpdateOneRequiredWithoutTagsNestedInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutTagsInput, Prisma.PostUncheckedCreateWithoutTagsInput>
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutTagsInput
+  upsert?: Prisma.PostUpsertWithoutTagsInput
+  connect?: Prisma.PostWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PostUpdateToOneWithWhereWithoutTagsInput, Prisma.PostUpdateWithoutTagsInput>, Prisma.PostUncheckedUpdateWithoutTagsInput>
+}
+
 export type PostCreateWithoutAuthorInput = {
   id?: string
   title: string
   slug: string
-  content: string
   excerpt?: string | null
-  coverImage?: string | null
+  content: string
+  featuredImageUrl?: string | null
+  featuredImageId?: string | null
   status?: $Enums.PostStatus
+  isFeatured?: boolean
+  isTrending?: boolean
+  readingTime?: number
   viewCount?: number
   publishedAt?: Date | string | null
+  scheduledAt?: Date | string | null
+  seoTitle?: string | null
+  seoDescription?: string | null
   isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   category?: Prisma.CategoryCreateNestedOneWithoutPostsInput
+  tags?: Prisma.PostTagCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateWithoutAuthorInput = {
   id?: string
   title: string
   slug: string
-  content: string
   excerpt?: string | null
-  coverImage?: string | null
+  content: string
+  featuredImageUrl?: string | null
+  featuredImageId?: string | null
   status?: $Enums.PostStatus
+  isFeatured?: boolean
+  isTrending?: boolean
+  readingTime?: number
   viewCount?: number
   publishedAt?: Date | string | null
+  scheduledAt?: Date | string | null
+  seoTitle?: string | null
+  seoDescription?: string | null
   isDeleted?: boolean
+  deletedAt?: Date | string | null
   categoryId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  tags?: Prisma.PostTagUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostCreateOrConnectWithoutAuthorInput = {
@@ -714,13 +940,21 @@ export type PostScalarWhereInput = {
   id?: Prisma.StringFilter<"Post"> | string
   title?: Prisma.StringFilter<"Post"> | string
   slug?: Prisma.StringFilter<"Post"> | string
-  content?: Prisma.StringFilter<"Post"> | string
   excerpt?: Prisma.StringNullableFilter<"Post"> | string | null
-  coverImage?: Prisma.StringNullableFilter<"Post"> | string | null
+  content?: Prisma.StringFilter<"Post"> | string
+  featuredImageUrl?: Prisma.StringNullableFilter<"Post"> | string | null
+  featuredImageId?: Prisma.StringNullableFilter<"Post"> | string | null
   status?: Prisma.EnumPostStatusFilter<"Post"> | $Enums.PostStatus
+  isFeatured?: Prisma.BoolFilter<"Post"> | boolean
+  isTrending?: Prisma.BoolFilter<"Post"> | boolean
+  readingTime?: Prisma.IntFilter<"Post"> | number
   viewCount?: Prisma.IntFilter<"Post"> | number
   publishedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
+  scheduledAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
+  seoTitle?: Prisma.StringNullableFilter<"Post"> | string | null
+  seoDescription?: Prisma.StringNullableFilter<"Post"> | string | null
   isDeleted?: Prisma.BoolFilter<"Post"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
   authorId?: Prisma.StringFilter<"Post"> | string
   categoryId?: Prisma.StringNullableFilter<"Post"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
@@ -731,32 +965,50 @@ export type PostCreateWithoutCategoryInput = {
   id?: string
   title: string
   slug: string
-  content: string
   excerpt?: string | null
-  coverImage?: string | null
+  content: string
+  featuredImageUrl?: string | null
+  featuredImageId?: string | null
   status?: $Enums.PostStatus
+  isFeatured?: boolean
+  isTrending?: boolean
+  readingTime?: number
   viewCount?: number
   publishedAt?: Date | string | null
+  scheduledAt?: Date | string | null
+  seoTitle?: string | null
+  seoDescription?: string | null
   isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutPostsInput
+  tags?: Prisma.PostTagCreateNestedManyWithoutPostInput
 }
 
 export type PostUncheckedCreateWithoutCategoryInput = {
   id?: string
   title: string
   slug: string
-  content: string
   excerpt?: string | null
-  coverImage?: string | null
+  content: string
+  featuredImageUrl?: string | null
+  featuredImageId?: string | null
   status?: $Enums.PostStatus
+  isFeatured?: boolean
+  isTrending?: boolean
+  readingTime?: number
   viewCount?: number
   publishedAt?: Date | string | null
+  scheduledAt?: Date | string | null
+  seoTitle?: string | null
+  seoDescription?: string | null
   isDeleted?: boolean
+  deletedAt?: Date | string | null
   authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  tags?: Prisma.PostTagUncheckedCreateNestedManyWithoutPostInput
 }
 
 export type PostCreateOrConnectWithoutCategoryInput = {
@@ -785,17 +1037,141 @@ export type PostUpdateManyWithWhereWithoutCategoryInput = {
   data: Prisma.XOR<Prisma.PostUpdateManyMutationInput, Prisma.PostUncheckedUpdateManyWithoutCategoryInput>
 }
 
+export type PostCreateWithoutTagsInput = {
+  id?: string
+  title: string
+  slug: string
+  excerpt?: string | null
+  content: string
+  featuredImageUrl?: string | null
+  featuredImageId?: string | null
+  status?: $Enums.PostStatus
+  isFeatured?: boolean
+  isTrending?: boolean
+  readingTime?: number
+  viewCount?: number
+  publishedAt?: Date | string | null
+  scheduledAt?: Date | string | null
+  seoTitle?: string | null
+  seoDescription?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  author: Prisma.UserCreateNestedOneWithoutPostsInput
+  category?: Prisma.CategoryCreateNestedOneWithoutPostsInput
+}
+
+export type PostUncheckedCreateWithoutTagsInput = {
+  id?: string
+  title: string
+  slug: string
+  excerpt?: string | null
+  content: string
+  featuredImageUrl?: string | null
+  featuredImageId?: string | null
+  status?: $Enums.PostStatus
+  isFeatured?: boolean
+  isTrending?: boolean
+  readingTime?: number
+  viewCount?: number
+  publishedAt?: Date | string | null
+  scheduledAt?: Date | string | null
+  seoTitle?: string | null
+  seoDescription?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  authorId: string
+  categoryId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PostCreateOrConnectWithoutTagsInput = {
+  where: Prisma.PostWhereUniqueInput
+  create: Prisma.XOR<Prisma.PostCreateWithoutTagsInput, Prisma.PostUncheckedCreateWithoutTagsInput>
+}
+
+export type PostUpsertWithoutTagsInput = {
+  update: Prisma.XOR<Prisma.PostUpdateWithoutTagsInput, Prisma.PostUncheckedUpdateWithoutTagsInput>
+  create: Prisma.XOR<Prisma.PostCreateWithoutTagsInput, Prisma.PostUncheckedCreateWithoutTagsInput>
+  where?: Prisma.PostWhereInput
+}
+
+export type PostUpdateToOneWithWhereWithoutTagsInput = {
+  where?: Prisma.PostWhereInput
+  data: Prisma.XOR<Prisma.PostUpdateWithoutTagsInput, Prisma.PostUncheckedUpdateWithoutTagsInput>
+}
+
+export type PostUpdateWithoutTagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  featuredImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  featuredImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTrending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readingTime?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  author?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
+  category?: Prisma.CategoryUpdateOneWithoutPostsNestedInput
+}
+
+export type PostUncheckedUpdateWithoutTagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  featuredImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  featuredImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTrending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readingTime?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type PostCreateManyAuthorInput = {
   id?: string
   title: string
   slug: string
-  content: string
   excerpt?: string | null
-  coverImage?: string | null
+  content: string
+  featuredImageUrl?: string | null
+  featuredImageId?: string | null
   status?: $Enums.PostStatus
+  isFeatured?: boolean
+  isTrending?: boolean
+  readingTime?: number
   viewCount?: number
   publishedAt?: Date | string | null
+  scheduledAt?: Date | string | null
+  seoTitle?: string | null
+  seoDescription?: string | null
   isDeleted?: boolean
+  deletedAt?: Date | string | null
   categoryId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -805,45 +1181,71 @@ export type PostUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  featuredImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  featuredImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTrending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readingTime?: Prisma.IntFieldUpdateOperationsInput | number
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.CategoryUpdateOneWithoutPostsNestedInput
+  tags?: Prisma.PostTagUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  featuredImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  featuredImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTrending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readingTime?: Prisma.IntFieldUpdateOperationsInput | number
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.PostTagUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateManyWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  featuredImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  featuredImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTrending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readingTime?: Prisma.IntFieldUpdateOperationsInput | number
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -853,13 +1255,21 @@ export type PostCreateManyCategoryInput = {
   id?: string
   title: string
   slug: string
-  content: string
   excerpt?: string | null
-  coverImage?: string | null
+  content: string
+  featuredImageUrl?: string | null
+  featuredImageId?: string | null
   status?: $Enums.PostStatus
+  isFeatured?: boolean
+  isTrending?: boolean
+  readingTime?: number
   viewCount?: number
   publishedAt?: Date | string | null
+  scheduledAt?: Date | string | null
+  seoTitle?: string | null
+  seoDescription?: string | null
   isDeleted?: boolean
+  deletedAt?: Date | string | null
   authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -869,82 +1279,155 @@ export type PostUpdateWithoutCategoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  featuredImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  featuredImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTrending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readingTime?: Prisma.IntFieldUpdateOperationsInput | number
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
+  tags?: Prisma.PostTagUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateWithoutCategoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  featuredImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  featuredImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTrending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readingTime?: Prisma.IntFieldUpdateOperationsInput | number
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.PostTagUncheckedUpdateManyWithoutPostNestedInput
 }
 
 export type PostUncheckedUpdateManyWithoutCategoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
   excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  featuredImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  featuredImageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTrending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readingTime?: Prisma.IntFieldUpdateOperationsInput | number
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
+/**
+ * Count Type PostCountOutputType
+ */
+
+export type PostCountOutputType = {
+  tags: number
+}
+
+export type PostCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tags?: boolean | PostCountOutputTypeCountTagsArgs
+}
+
+/**
+ * PostCountOutputType without action
+ */
+export type PostCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PostCountOutputType
+   */
+  select?: Prisma.PostCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * PostCountOutputType without action
+ */
+export type PostCountOutputTypeCountTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PostTagWhereInput
+}
+
 
 export type PostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
   slug?: boolean
-  content?: boolean
   excerpt?: boolean
-  coverImage?: boolean
+  content?: boolean
+  featuredImageUrl?: boolean
+  featuredImageId?: boolean
   status?: boolean
+  isFeatured?: boolean
+  isTrending?: boolean
+  readingTime?: boolean
   viewCount?: boolean
   publishedAt?: boolean
+  scheduledAt?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
   isDeleted?: boolean
+  deletedAt?: boolean
   authorId?: boolean
   categoryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   category?: boolean | Prisma.Post$categoryArgs<ExtArgs>
+  tags?: boolean | Prisma.Post$tagsArgs<ExtArgs>
+  _count?: boolean | Prisma.PostCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["post"]>
 
 export type PostSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
   slug?: boolean
-  content?: boolean
   excerpt?: boolean
-  coverImage?: boolean
+  content?: boolean
+  featuredImageUrl?: boolean
+  featuredImageId?: boolean
   status?: boolean
+  isFeatured?: boolean
+  isTrending?: boolean
+  readingTime?: boolean
   viewCount?: boolean
   publishedAt?: boolean
+  scheduledAt?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
   isDeleted?: boolean
+  deletedAt?: boolean
   authorId?: boolean
   categoryId?: boolean
   createdAt?: boolean
@@ -957,13 +1440,21 @@ export type PostSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   title?: boolean
   slug?: boolean
-  content?: boolean
   excerpt?: boolean
-  coverImage?: boolean
+  content?: boolean
+  featuredImageUrl?: boolean
+  featuredImageId?: boolean
   status?: boolean
+  isFeatured?: boolean
+  isTrending?: boolean
+  readingTime?: boolean
   viewCount?: boolean
   publishedAt?: boolean
+  scheduledAt?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
   isDeleted?: boolean
+  deletedAt?: boolean
   authorId?: boolean
   categoryId?: boolean
   createdAt?: boolean
@@ -976,23 +1467,33 @@ export type PostSelectScalar = {
   id?: boolean
   title?: boolean
   slug?: boolean
-  content?: boolean
   excerpt?: boolean
-  coverImage?: boolean
+  content?: boolean
+  featuredImageUrl?: boolean
+  featuredImageId?: boolean
   status?: boolean
+  isFeatured?: boolean
+  isTrending?: boolean
+  readingTime?: boolean
   viewCount?: boolean
   publishedAt?: boolean
+  scheduledAt?: boolean
+  seoTitle?: boolean
+  seoDescription?: boolean
   isDeleted?: boolean
+  deletedAt?: boolean
   authorId?: boolean
   categoryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "content" | "excerpt" | "coverImage" | "status" | "viewCount" | "publishedAt" | "isDeleted" | "authorId" | "categoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
+export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "slug" | "excerpt" | "content" | "featuredImageUrl" | "featuredImageId" | "status" | "isFeatured" | "isTrending" | "readingTime" | "viewCount" | "publishedAt" | "scheduledAt" | "seoTitle" | "seoDescription" | "isDeleted" | "deletedAt" | "authorId" | "categoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
 export type PostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   category?: boolean | Prisma.Post$categoryArgs<ExtArgs>
+  tags?: boolean | Prisma.Post$tagsArgs<ExtArgs>
+  _count?: boolean | Prisma.PostCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PostIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1008,18 +1509,27 @@ export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     author: Prisma.$UserPayload<ExtArgs>
     category: Prisma.$CategoryPayload<ExtArgs> | null
+    tags: Prisma.$PostTagPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     title: string
     slug: string
-    content: string
     excerpt: string | null
-    coverImage: string | null
+    content: string
+    featuredImageUrl: string | null
+    featuredImageId: string | null
     status: $Enums.PostStatus
+    isFeatured: boolean
+    isTrending: boolean
+    readingTime: number
     viewCount: number
     publishedAt: Date | null
+    scheduledAt: Date | null
+    seoTitle: string | null
+    seoDescription: string | null
     isDeleted: boolean
+    deletedAt: Date | null
     authorId: string
     categoryId: string | null
     createdAt: Date
@@ -1420,6 +1930,7 @@ export interface Prisma__PostClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   category<T extends Prisma.Post$categoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$categoryArgs<ExtArgs>>): Prisma.Prisma__CategoryClient<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  tags<T extends Prisma.Post$tagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1452,13 +1963,21 @@ export interface PostFieldRefs {
   readonly id: Prisma.FieldRef<"Post", 'String'>
   readonly title: Prisma.FieldRef<"Post", 'String'>
   readonly slug: Prisma.FieldRef<"Post", 'String'>
-  readonly content: Prisma.FieldRef<"Post", 'String'>
   readonly excerpt: Prisma.FieldRef<"Post", 'String'>
-  readonly coverImage: Prisma.FieldRef<"Post", 'String'>
+  readonly content: Prisma.FieldRef<"Post", 'String'>
+  readonly featuredImageUrl: Prisma.FieldRef<"Post", 'String'>
+  readonly featuredImageId: Prisma.FieldRef<"Post", 'String'>
   readonly status: Prisma.FieldRef<"Post", 'PostStatus'>
+  readonly isFeatured: Prisma.FieldRef<"Post", 'Boolean'>
+  readonly isTrending: Prisma.FieldRef<"Post", 'Boolean'>
+  readonly readingTime: Prisma.FieldRef<"Post", 'Int'>
   readonly viewCount: Prisma.FieldRef<"Post", 'Int'>
   readonly publishedAt: Prisma.FieldRef<"Post", 'DateTime'>
+  readonly scheduledAt: Prisma.FieldRef<"Post", 'DateTime'>
+  readonly seoTitle: Prisma.FieldRef<"Post", 'String'>
+  readonly seoDescription: Prisma.FieldRef<"Post", 'String'>
   readonly isDeleted: Prisma.FieldRef<"Post", 'Boolean'>
+  readonly deletedAt: Prisma.FieldRef<"Post", 'DateTime'>
   readonly authorId: Prisma.FieldRef<"Post", 'String'>
   readonly categoryId: Prisma.FieldRef<"Post", 'String'>
   readonly createdAt: Prisma.FieldRef<"Post", 'DateTime'>
@@ -1880,6 +2399,30 @@ export type Post$categoryArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   include?: Prisma.CategoryInclude<ExtArgs> | null
   where?: Prisma.CategoryWhereInput
+}
+
+/**
+ * Post.tags
+ */
+export type Post$tagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PostTag
+   */
+  select?: Prisma.PostTagSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PostTag
+   */
+  omit?: Prisma.PostTagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PostTagInclude<ExtArgs> | null
+  where?: Prisma.PostTagWhereInput
+  orderBy?: Prisma.PostTagOrderByWithRelationInput | Prisma.PostTagOrderByWithRelationInput[]
+  cursor?: Prisma.PostTagWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PostTagScalarFieldEnum | Prisma.PostTagScalarFieldEnum[]
 }
 
 /**

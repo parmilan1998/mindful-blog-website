@@ -2,6 +2,7 @@ import "dotenv/config";
 
 import { runAdminSeed } from "./seeds/admin.seed";
 import { runCategorySeed } from "./seeds/category.seed";
+import { runTagSeed } from "./seeds/tag.seed";
 
 async function runSeeds() {
   console.log("\n🚀 ================================");
@@ -9,15 +10,18 @@ async function runSeeds() {
   console.log("================================\n");
 
   try {
-    // 1. Admin seed (must run first)
     console.log("👑 Running Admin Seed...");
     await runAdminSeed();
 
     console.log("\n--------------------------------\n");
 
-    // 2. Category seed
     console.log("📚 Running Category Seed...");
     await runCategorySeed();
+
+    console.log("\n--------------------------------\n");
+
+    console.log("🏷️ Running Tag Seed...");
+    await runTagSeed();
 
     console.log("\n--------------------------------\n");
 

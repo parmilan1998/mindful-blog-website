@@ -56,7 +56,9 @@ export const ModelName = {
   Account: 'Account',
   Verification: 'Verification',
   Category: 'Category',
-  Post: 'Post'
+  Tag: 'Tag',
+  Post: 'Post',
+  PostTag: 'PostTag'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -139,6 +141,7 @@ export const CategoryScalarFieldEnum = {
   name: 'name',
   slug: 'slug',
   description: 'description',
+  color: 'color',
   metaTitle: 'metaTitle',
   metaDescription: 'metaDescription',
   imageUrl: 'imageUrl',
@@ -154,17 +157,39 @@ export const CategoryScalarFieldEnum = {
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
 
 
+export const TagScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  color: 'color',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
+
+
 export const PostScalarFieldEnum = {
   id: 'id',
   title: 'title',
   slug: 'slug',
-  content: 'content',
   excerpt: 'excerpt',
-  coverImage: 'coverImage',
+  content: 'content',
+  featuredImageUrl: 'featuredImageUrl',
+  featuredImageId: 'featuredImageId',
   status: 'status',
+  isFeatured: 'isFeatured',
+  isTrending: 'isTrending',
+  readingTime: 'readingTime',
   viewCount: 'viewCount',
   publishedAt: 'publishedAt',
+  scheduledAt: 'scheduledAt',
+  seoTitle: 'seoTitle',
+  seoDescription: 'seoDescription',
   isDeleted: 'isDeleted',
+  deletedAt: 'deletedAt',
   authorId: 'authorId',
   categoryId: 'categoryId',
   createdAt: 'createdAt',
@@ -172,6 +197,14 @@ export const PostScalarFieldEnum = {
 } as const
 
 export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+
+
+export const PostTagScalarFieldEnum = {
+  postId: 'postId',
+  tagId: 'tagId'
+} as const
+
+export type PostTagScalarFieldEnum = (typeof PostTagScalarFieldEnum)[keyof typeof PostTagScalarFieldEnum]
 
 
 export const SortOrder = {

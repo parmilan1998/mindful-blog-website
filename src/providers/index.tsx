@@ -7,6 +7,7 @@ import { AuthProvider } from "./auth-provider";
 import { QueryProvider } from "./query-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 // import { SessionProvider } from "next-auth/react";
+// import { Toaster } from "react-hot-toast";
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
@@ -17,6 +18,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
           <TooltipProvider>
             {children}
             <Toaster richColors position="top-right" />
+            {/* <Toaster position="top-right" /> */}
           </TooltipProvider>
         </AuthProvider>
         {/* </SessionProvider> */}

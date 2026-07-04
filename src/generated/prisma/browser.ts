@@ -43,7 +43,17 @@ export type Verification = Prisma.VerificationModel
  */
 export type Category = Prisma.CategoryModel
 /**
+ * Model Tag
+ * 
+ */
+export type Tag = Prisma.TagModel
+/**
  * Model Post
  * 
  */
 export type Post = Prisma.PostModel
+/**
+ * Model PostTag
+ * 
+ */
+export type PostTag = Prisma.PostTagModel

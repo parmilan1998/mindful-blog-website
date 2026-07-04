@@ -389,7 +389,9 @@ export const ModelName = {
   Account: 'Account',
   Verification: 'Verification',
   Category: 'Category',
-  Post: 'Post'
+  Tag: 'Tag',
+  Post: 'Post',
+  PostTag: 'PostTag'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -405,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "category" | "post"
+    modelProps: "user" | "session" | "account" | "verification" | "category" | "tag" | "post" | "postTag"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -779,6 +781,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Tag: {
+      payload: Prisma.$TagPayload<ExtArgs>
+      fields: Prisma.TagFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TagFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TagFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagPayload>
+        }
+        findFirst: {
+          args: Prisma.TagFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TagFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagPayload>
+        }
+        findMany: {
+          args: Prisma.TagFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagPayload>[]
+        }
+        create: {
+          args: Prisma.TagCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagPayload>
+        }
+        createMany: {
+          args: Prisma.TagCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TagCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagPayload>[]
+        }
+        delete: {
+          args: Prisma.TagDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagPayload>
+        }
+        update: {
+          args: Prisma.TagUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagPayload>
+        }
+        deleteMany: {
+          args: Prisma.TagDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TagUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TagUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagPayload>[]
+        }
+        upsert: {
+          args: Prisma.TagUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagPayload>
+        }
+        aggregate: {
+          args: Prisma.TagAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTag>
+        }
+        groupBy: {
+          args: Prisma.TagGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TagGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TagCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TagCountAggregateOutputType> | number
+        }
+      }
+    }
     Post: {
       payload: Prisma.$PostPayload<ExtArgs>
       fields: Prisma.PostFieldRefs
@@ -850,6 +926,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.PostCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.PostCountAggregateOutputType> | number
+        }
+      }
+    }
+    PostTag: {
+      payload: Prisma.$PostTagPayload<ExtArgs>
+      fields: Prisma.PostTagFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PostTagFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostTagPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PostTagFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostTagPayload>
+        }
+        findFirst: {
+          args: Prisma.PostTagFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostTagPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PostTagFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostTagPayload>
+        }
+        findMany: {
+          args: Prisma.PostTagFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostTagPayload>[]
+        }
+        create: {
+          args: Prisma.PostTagCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostTagPayload>
+        }
+        createMany: {
+          args: Prisma.PostTagCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PostTagCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostTagPayload>[]
+        }
+        delete: {
+          args: Prisma.PostTagDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostTagPayload>
+        }
+        update: {
+          args: Prisma.PostTagUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostTagPayload>
+        }
+        deleteMany: {
+          args: Prisma.PostTagDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PostTagUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PostTagUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostTagPayload>[]
+        }
+        upsert: {
+          args: Prisma.PostTagUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PostTagPayload>
+        }
+        aggregate: {
+          args: Prisma.PostTagAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePostTag>
+        }
+        groupBy: {
+          args: Prisma.PostTagGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PostTagGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PostTagCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PostTagCountAggregateOutputType> | number
         }
       }
     }
@@ -956,6 +1106,7 @@ export const CategoryScalarFieldEnum = {
   name: 'name',
   slug: 'slug',
   description: 'description',
+  color: 'color',
   metaTitle: 'metaTitle',
   metaDescription: 'metaDescription',
   imageUrl: 'imageUrl',
@@ -971,17 +1122,39 @@ export const CategoryScalarFieldEnum = {
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
 
 
+export const TagScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  color: 'color',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
+
+
 export const PostScalarFieldEnum = {
   id: 'id',
   title: 'title',
   slug: 'slug',
-  content: 'content',
   excerpt: 'excerpt',
-  coverImage: 'coverImage',
+  content: 'content',
+  featuredImageUrl: 'featuredImageUrl',
+  featuredImageId: 'featuredImageId',
   status: 'status',
+  isFeatured: 'isFeatured',
+  isTrending: 'isTrending',
+  readingTime: 'readingTime',
   viewCount: 'viewCount',
   publishedAt: 'publishedAt',
+  scheduledAt: 'scheduledAt',
+  seoTitle: 'seoTitle',
+  seoDescription: 'seoDescription',
   isDeleted: 'isDeleted',
+  deletedAt: 'deletedAt',
   authorId: 'authorId',
   categoryId: 'categoryId',
   createdAt: 'createdAt',
@@ -989,6 +1162,14 @@ export const PostScalarFieldEnum = {
 } as const
 
 export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+
+
+export const PostTagScalarFieldEnum = {
+  postId: 'postId',
+  tagId: 'tagId'
+} as const
+
+export type PostTagScalarFieldEnum = (typeof PostTagScalarFieldEnum)[keyof typeof PostTagScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1240,7 +1421,9 @@ export type GlobalOmitConfig = {
   account?: Prisma.AccountOmit
   verification?: Prisma.VerificationOmit
   category?: Prisma.CategoryOmit
+  tag?: Prisma.TagOmit
   post?: Prisma.PostOmit
+  postTag?: Prisma.PostTagOmit
 }
 
 /* Types for Logging */

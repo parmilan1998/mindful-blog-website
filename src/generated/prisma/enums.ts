@@ -28,6 +28,7 @@ export type CategoryStatus = (typeof CategoryStatus)[keyof typeof CategoryStatus
 export const PostStatus = {
   DRAFT: 'DRAFT',
   PUBLISHED: 'PUBLISHED',
+  SCHEDULED: 'SCHEDULED',
   ARCHIVED: 'ARCHIVED'
 } as const
 

@@ -25,8 +25,11 @@ enum CategoryStatus {
 enum PostStatus {
   DRAFT
   PUBLISHED
+  SCHEDULED
   ARCHIVED
 }
+
+// ─── User ────────────────────────────────────────────────────────────────────
 
 model User {
   id            String    @id
@@ -93,11 +96,14 @@ model Verification {
   @@map("verification")
 }
 
+// ─── Category ────────────────────────────────────────────────────────────────
+
 model Category {
-  id          String  @id @default(cuid())
+  id          String @id @default(cuid())
   name        String
-  slug        String  @unique
+  slug        String @unique
   description String?
+  color       String @default("#6366f1")
 
   metaTitle       String?
   metaDescription String?
@@ -121,22 +127,53 @@ model Category {
   @@map("category")
 }
 
+// ─── Tag ─────────────────────────────────────────────────────────────────────
+
+model Tag {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  description String?
+  color       String  @default("#8b5cf6")
+
+  isDeleted Boolean @default(false)
+
+  posts PostTag[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isDeleted])
+  @@map("tag")
+}
+
+// ─── Post ─────────────────────────────────────────────────────────────────────
+
 model Post {
   id      String @id @default(cuid())
   title   String
   slug    String @unique
-  content String
-
   excerpt String?
+  content String @db.Text
 
-  coverImage String?
+  featuredImageUrl String?
+  featuredImageId  String?
 
-  status PostStatus @default(DRAFT)
+  status      PostStatus @default(DRAFT)
+  isFeatured  Boolean    @default(false)
+  isTrending  Boolean    @default(false)
 
-  viewCount   Int       @default(0)
+  readingTime Int @default(0)
+  viewCount   Int @default(0)
+
   publishedAt DateTime?
+  scheduledAt DateTime?
 
-  isDeleted Boolean @default(false)
+  seoTitle       String?
+  seoDescription String?
+
+  isDeleted Boolean   @default(false)
+  deletedAt DateTime?
 
   authorId String
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
@@ -144,11 +181,28 @@ model Post {
   categoryId String?
   category   Category? @relation(fields: [categoryId], references: [id])
 
+  tags PostTag[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([slug])
   @@index([status])
   @@index([authorId])
+  @@index([categoryId])
+  @@index([isDeleted])
   @@map("post")
+}
+
+// ─── PostTag (join) ───────────────────────────────────────────────────────────
+
+model PostTag {
+  postId String
+  tagId  String
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([postId, tagId])
+  @@map("post_tag")
 }

@@ -39,6 +39,7 @@ export type CategoryMinAggregateOutputType = {
   name: string | null
   slug: string | null
   description: string | null
+  color: string | null
   metaTitle: string | null
   metaDescription: string | null
   imageUrl: string | null
@@ -56,6 +57,7 @@ export type CategoryMaxAggregateOutputType = {
   name: string | null
   slug: string | null
   description: string | null
+  color: string | null
   metaTitle: string | null
   metaDescription: string | null
   imageUrl: string | null
@@ -73,6 +75,7 @@ export type CategoryCountAggregateOutputType = {
   name: number
   slug: number
   description: number
+  color: number
   metaTitle: number
   metaDescription: number
   imageUrl: number
@@ -100,6 +103,7 @@ export type CategoryMinAggregateInputType = {
   name?: true
   slug?: true
   description?: true
+  color?: true
   metaTitle?: true
   metaDescription?: true
   imageUrl?: true
@@ -117,6 +121,7 @@ export type CategoryMaxAggregateInputType = {
   name?: true
   slug?: true
   description?: true
+  color?: true
   metaTitle?: true
   metaDescription?: true
   imageUrl?: true
@@ -134,6 +139,7 @@ export type CategoryCountAggregateInputType = {
   name?: true
   slug?: true
   description?: true
+  color?: true
   metaTitle?: true
   metaDescription?: true
   imageUrl?: true
@@ -238,6 +244,7 @@ export type CategoryGroupByOutputType = {
   name: string
   slug: string
   description: string | null
+  color: string
   metaTitle: string | null
   metaDescription: string | null
   imageUrl: string | null
@@ -278,6 +285,7 @@ export type CategoryWhereInput = {
   name?: Prisma.StringFilter<"Category"> | string
   slug?: Prisma.StringFilter<"Category"> | string
   description?: Prisma.StringNullableFilter<"Category"> | string | null
+  color?: Prisma.StringFilter<"Category"> | string
   metaTitle?: Prisma.StringNullableFilter<"Category"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"Category"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Category"> | string | null
@@ -296,6 +304,7 @@ export type CategoryOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  color?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -317,6 +326,7 @@ export type CategoryWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CategoryWhereInput | Prisma.CategoryWhereInput[]
   name?: Prisma.StringFilter<"Category"> | string
   description?: Prisma.StringNullableFilter<"Category"> | string | null
+  color?: Prisma.StringFilter<"Category"> | string
   metaTitle?: Prisma.StringNullableFilter<"Category"> | string | null
   metaDescription?: Prisma.StringNullableFilter<"Category"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Category"> | string | null
@@ -335,6 +345,7 @@ export type CategoryOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  color?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   metaDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -360,6 +371,7 @@ export type CategoryScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Category"> | string
   slug?: Prisma.StringWithAggregatesFilter<"Category"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Category"> | string | null
+  color?: Prisma.StringWithAggregatesFilter<"Category"> | string
   metaTitle?: Prisma.StringNullableWithAggregatesFilter<"Category"> | string | null
   metaDescription?: Prisma.StringNullableWithAggregatesFilter<"Category"> | string | null
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Category"> | string | null
@@ -377,6 +389,7 @@ export type CategoryCreateInput = {
   name: string
   slug: string
   description?: string | null
+  color?: string
   metaTitle?: string | null
   metaDescription?: string | null
   imageUrl?: string | null
@@ -395,6 +408,7 @@ export type CategoryUncheckedCreateInput = {
   name: string
   slug: string
   description?: string | null
+  color?: string
   metaTitle?: string | null
   metaDescription?: string | null
   imageUrl?: string | null
@@ -413,6 +427,7 @@ export type CategoryUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.StringFieldUpdateOperationsInput | string
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -431,6 +446,7 @@ export type CategoryUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.StringFieldUpdateOperationsInput | string
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -449,6 +465,7 @@ export type CategoryCreateManyInput = {
   name: string
   slug: string
   description?: string | null
+  color?: string
   metaTitle?: string | null
   metaDescription?: string | null
   imageUrl?: string | null
@@ -466,6 +483,7 @@ export type CategoryUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.StringFieldUpdateOperationsInput | string
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -483,6 +501,7 @@ export type CategoryUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.StringFieldUpdateOperationsInput | string
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -500,6 +519,7 @@ export type CategoryCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  color?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
@@ -521,6 +541,7 @@ export type CategoryMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  color?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
@@ -538,6 +559,7 @@ export type CategoryMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  color?: Prisma.SortOrder
   metaTitle?: Prisma.SortOrder
   metaDescription?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
@@ -592,6 +614,7 @@ export type CategoryCreateWithoutPostsInput = {
   name: string
   slug: string
   description?: string | null
+  color?: string
   metaTitle?: string | null
   metaDescription?: string | null
   imageUrl?: string | null
@@ -609,6 +632,7 @@ export type CategoryUncheckedCreateWithoutPostsInput = {
   name: string
   slug: string
   description?: string | null
+  color?: string
   metaTitle?: string | null
   metaDescription?: string | null
   imageUrl?: string | null
@@ -642,6 +666,7 @@ export type CategoryUpdateWithoutPostsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.StringFieldUpdateOperationsInput | string
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -659,6 +684,7 @@ export type CategoryUncheckedUpdateWithoutPostsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.StringFieldUpdateOperationsInput | string
   metaTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metaDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -707,6 +733,7 @@ export type CategorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name?: boolean
   slug?: boolean
   description?: boolean
+  color?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   imageUrl?: boolean
@@ -726,6 +753,7 @@ export type CategorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   name?: boolean
   slug?: boolean
   description?: boolean
+  color?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   imageUrl?: boolean
@@ -743,6 +771,7 @@ export type CategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   name?: boolean
   slug?: boolean
   description?: boolean
+  color?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   imageUrl?: boolean
@@ -760,6 +789,7 @@ export type CategorySelectScalar = {
   name?: boolean
   slug?: boolean
   description?: boolean
+  color?: boolean
   metaTitle?: boolean
   metaDescription?: boolean
   imageUrl?: boolean
@@ -772,7 +802,7 @@ export type CategorySelectScalar = {
   updatedAt?: boolean
 }
 
-export type CategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "metaTitle" | "metaDescription" | "imageUrl" | "icon" | "status" | "order" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["category"]>
+export type CategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "color" | "metaTitle" | "metaDescription" | "imageUrl" | "icon" | "status" | "order" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["category"]>
 export type CategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   posts?: boolean | Prisma.Category$postsArgs<ExtArgs>
   _count?: boolean | Prisma.CategoryCountOutputTypeDefaultArgs<ExtArgs>
@@ -790,6 +820,7 @@ export type $CategoryPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     name: string
     slug: string
     description: string | null
+    color: string
     metaTitle: string | null
     metaDescription: string | null
     imageUrl: string | null
@@ -1228,6 +1259,7 @@ export interface CategoryFieldRefs {
   readonly name: Prisma.FieldRef<"Category", 'String'>
   readonly slug: Prisma.FieldRef<"Category", 'String'>
   readonly description: Prisma.FieldRef<"Category", 'String'>
+  readonly color: Prisma.FieldRef<"Category", 'String'>
   readonly metaTitle: Prisma.FieldRef<"Category", 'String'>
   readonly metaDescription: Prisma.FieldRef<"Category", 'String'>
   readonly imageUrl: Prisma.FieldRef<"Category", 'String'>

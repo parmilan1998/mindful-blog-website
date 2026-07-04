@@ -50,6 +50,15 @@ export default function QuillEditor({
       },
     });
 
+    // Constrain the contenteditable area to a fixed height so it scrolls
+    // internally. Target .ql-editor (not .ql-container) — this is the
+    // correct element; Quill's snow theme already sets overflow-y: auto on it.
+    const editor = editorRef.current.querySelector<HTMLElement>(".ql-editor");
+    if (editor) {
+      editor.style.height = "450px";
+      editor.style.overflowY = "auto";
+    }
+
     quill.on("text-change", () => {
       onChangeRef.current(quill.getSemanticHTML());
     });
@@ -101,8 +110,8 @@ export default function QuillEditor({
         <div
           ref={editorRef}
           className={clsx(
-            "quill-editor min-h-[450px] transition-opacity",
-            isGenerating && "opacity-0 min-h-[450px]",
+            "quill-editor transition-opacity",
+            isGenerating && "opacity-0",
           )}
         />
 
